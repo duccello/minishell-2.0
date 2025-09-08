@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 11:08:49 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 18:07:57 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 19:50:48 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void					init_token(t_tok *token, t_data *data);
 void					trim_quotes(t_tok *token);
 void					trim_spaces(t_tok *token);
 int						count_tokens(char *s, char *tracker);
+void					toggle_quotes(char c, bool *in_quote, bool *in_dquote);
 
 #endif

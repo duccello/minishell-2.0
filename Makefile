@@ -17,6 +17,7 @@ SRCS		=	banner.c										\
 				signals.c										\
 				token.c											\
 				token_trim.c									\
+				token_quotes.c									\
 				utils.c
 SRC_FILES	=	$(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS		=	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))

@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:43:50 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 19:30:01 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 19:48:48 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,24 +117,6 @@ void	init_token(t_tok *token, t_data *data)
 	token->heredoc_operator = false;
 	token->heredoc_delimiter = false;
 	token->pipe = false;
-}
-
-void	toggle_quotes(char c, bool *in_quote, bool *in_dquote)
-{
-	if (c == '\'')
-	{
-		if (*in_quote == false && *in_dquote == false)
-			*in_quote = true;
-		else if (*in_quote == true && *in_dquote == false)
-			*in_quote = false;
-	}
-	else if (c == '"')
-	{
-		if (*in_dquote == false && *in_quote == false)
-			*in_dquote = true;
-		else if (*in_dquote == true && *in_quote == false)
-			*in_dquote = false;
-	}
 }
 
 int	count_tokens(char *s, char *tracker)
