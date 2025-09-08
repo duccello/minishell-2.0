@@ -6,13 +6,13 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:37:56 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 16:51:08 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:21:23 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include "libft.h"
-#include "operators.h"
+#include "fd_and_operators.h"
 #include "ft_fprintf.h"
 #include "token.h"
 #include <unistd.h>

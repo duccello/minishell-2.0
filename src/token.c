@@ -6,14 +6,14 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:43:50 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 16:48:57 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:21:37 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data.h"
 #include "expand.h"
 #include "libft.h"
-#include "operators.h"
+#include "fd_and_operators.h"
 #include "token.h"
 #include <readline/readline.h>
 #include <stdbool.h>

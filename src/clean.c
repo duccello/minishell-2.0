@@ -6,11 +6,11 @@
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 17:09:47 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/08 16:43:33 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:19:13 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cmd.h"
+#include "cmds.h"
 #include "data.h"
 #include "list.h"
 #include "token.h"
@@ -30,7 +30,7 @@ void	free_array(char **c)
 	free(c);
 	c = NULL;
 }
-
+/*
 void	free_cmd(t_cmd *c)
 {
 	if (c->argv != NULL)
@@ -55,7 +55,7 @@ void	free_cmd(t_cmd *c)
 	free(c);
 	c = NULL;
 }
-
+*/
 void	free_list(t_node *list)
 {
 	t_node *curr;
@@ -71,9 +71,9 @@ void	free_list(t_node *list)
 	}
 }
 
-void	clean_tokens(t_tokens **tokens, t_data *data)
+void	clean_tokens(t_tok **tokens, t_data *data)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (tokens != NULL)

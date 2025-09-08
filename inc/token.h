@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 11:08:49 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 16:46:15 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:07:57 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_tok
 	char	*s;
 	bool	quote;
 	bool	dquote;
-	bool	argument;
 	bool	input_operator;
 	bool	input_file;
 	bool	output_operator;
@@ -33,7 +32,6 @@ typedef struct s_tok
 	bool	append_file;
 	bool	heredoc_operator;
 	bool	heredoc_delimiter;
-	bool	heredoc_text;
 	bool	pipe;
 	bool	string;
 }	t_tok;

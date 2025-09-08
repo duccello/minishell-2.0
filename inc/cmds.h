@@ -6,12 +6,14 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:55:25 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 17:01:49 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:18:42 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CMDS_H
 # define CMDS_H
+
+# include <stdio.h>
 
 typedef struct s_data t_data;
 typedef struct s_tok t_tok;
@@ -19,10 +21,18 @@ typedef struct s_tok t_tok;
 typedef struct s_cmd
 {	
 	t_data	*data;							// echo "hello world" > file
-	char 	**argv;  						// argv[0] = "echo"; argv[1] = "hello world"
+	t_tok	**tokens;
+	char	**argv;							// argv[0] = "echo"; argv[1] = "hello world"
 	char	*in_file;						// NULL
 	char	*out_file;						// file
+	char	*append_file;
+	char	*delimiter;
 }	t_cmd;
 
 t_cmd	**create_cmds(t_data *data);
+size_t	count_cmds(t_tok **tokens, t_data *data);
+t_cmd	*create_cmd(t_tok **tokens, t_data *data);
+char	**create_argv(t_tok **tokens, t_data *data);
+void	populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index);
 
+#endif

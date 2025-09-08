@@ -13,7 +13,7 @@ SRCS		=	banner.c										\
 				interpret.c										\
 				list.c											\
 				main.c											\
-				operators.c										\
+				fd_and_operators.c								\
 				signals.c										\
 				token.c											\
 				token_trim.c									\
