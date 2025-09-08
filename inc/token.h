@@ -39,7 +39,7 @@ typedef struct s_tok
 }	t_tok;
 
 t_tok	**tokenize(t_data *data, char *s);
-t_tok	*populate_token(char **s, char **tracker);
+t_tok	*populate_token(char *s, char *tracker, int *j);
 void	init_token(t_tok *token, t_data *data);
 void	trim_quotes(t_tok *token);
 void	trim_spaces(t_tok *token);

@@ -25,10 +25,11 @@ t_tok	**tokenize(t_data *data, char *s)
 	t_tok	**tokens;
 	char	*tracker;
 	size_t	i;
-	size_t	j;
+	int		j;
 
 	tracker = ft_strdup(s);
 	i = 0;
+	j = 0;
 	while (tracker[i] != '\0')
 		tracker[i++] = '-';
 	data->n_tokens = count_tokens(s, tracker);
@@ -57,41 +58,33 @@ t_tok	**tokenize(t_data *data, char *s)
 	return (tokens);
 }
 
-t_tok	*populate_token(char *s, char *tracker, size_t *j)
+t_tok	*populate_token(char *s, char *tracker, int *j)
 {
 	t_tok	*token;
-	int		count;
-	int		i;
-	int 	start;
+	int		start;
+	int		len;
 
-	start = *j;
-	count = 0;
+	len = 0;
 	token = malloc(sizeof(t_tok));
 	if (token == NULL)
 		return (NULL);
-	while (s[j] != '\0')
+	while (tracker[*j] == '-')
+		(*j)++;
+	start = *j;
+	if (tracker[*j] == '+')
 	{
-		if (tracker[j] == '+' && j != 0)
+		(*j)++;
+		len++;
+		while (tracker[*j] != '\0' && tracker[*j] != '+')
 		{
-			j++;
-			while(s[j] != '+')
-			{
-				count++;
-				j++;
-			}
+			(*j)++;
+			len++;
 		}
 	}
-	token->s = malloc(count + 1);
+	token->s = malloc(len + 2);
+	ft_strlcpy(token->s, &s[start], len + 1);
+	printf("%s\n", token->s);
 	token->quote = false;
-	i = 0;
-	while (i < count)
-	{
-		token->s[i] = temp[i];
-		i++;
-	}
-	token->s[i] = '\0';
-	(*s)++;
-	(*tracker)++;
 	return (token);
 }
 
