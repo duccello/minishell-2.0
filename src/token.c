@@ -83,7 +83,6 @@ t_tok	*populate_token(char *s, char *tracker, int *j)
 	}
 	token->s = malloc(len + 2);
 	ft_strlcpy(token->s, &s[start], len + 1);
-	printf("%s\n", token->s);
 	token->quote = false;
 	return (token);
 }

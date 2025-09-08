@@ -39,9 +39,4 @@ void	init(t_data *data, char *s)
 
 	i = 0;
 	data->tokens = tokenize(data, s);
-/* 	while (i < data->n_tokens)
-	{
-		printf("%s\n", data->tokens[i]->s);
-		i++;
-	} */
 }
