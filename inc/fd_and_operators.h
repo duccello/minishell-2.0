@@ -13,9 +13,9 @@
 #ifndef FD_AND_OPERATORS_H
 # define FD_AND_OPERATORS_H
 
-typedef struct s_tok t_tok;
+typedef struct s_tok	t_tok;
 
-void	check_operators(t_tok *token);
-void	check_files(t_tok **tokens, int i);
+void					check_operators(t_tok *token);
+int						check_files(t_tok **tokens, int i);
 
 #endif

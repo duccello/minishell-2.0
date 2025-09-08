@@ -33,6 +33,6 @@ t_cmd	**create_cmds(t_data *data);
 size_t	count_cmds(t_tok **tokens, t_data *data);
 t_cmd	*create_cmd(t_tok **tokens, t_data *data);
 char	**create_argv(t_tok **tokens, t_data *data);
-void	populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index);
+void	populate_cmd(t_cmd *cmd, t_tok **tokens);
 
 #endif

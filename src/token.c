@@ -10,31 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "clean.h"
 #include "data.h"
 #include "expand.h"
-#include "libft.h"
 #include "fd_and_operators.h"
+#include "libft.h"
 #include "token.h"
+#include "ft_fprintf.h"
 #include <readline/readline.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-t_tok	**tokenize(t_data *data, char *s)
+t_tok	**tokenize(t_data *data, char *input)
 {
 	t_tok	**tokens;
 	char	*tracker;
 	size_t	i;
 
-	tracker = ft_strdup(s);
+	tracker = ft_strdup(input);
 	i = 0;
 	while (tracker[i] != '\0')
 		tracker[i++] = '-';
-	data->n_tokens = count_tokens(s, tracker);
+	data->n_tokens = count_tokens(input, tracker);
 	tokens = malloc(sizeof(t_tok *) * (data->n_tokens));
 	if (tokens == NULL)
 		return (NULL);
-	if (create_tokens(data, tokens) == 1)
+	if (create_tokens(data, tokens, tracker, input) == 1)
 	{
 		clean_tokens(tokens, data);
 		return (NULL);
@@ -42,16 +45,16 @@ t_tok	**tokenize(t_data *data, char *s)
 	return (tokens);
 }
 
-int		create_tokens(t_data *data, t_tok **tokens, char *tracker)
+int	create_tokens(t_data *data, t_tok **tokens, char *tracker, char *input)
 {
-	int i;
-	int j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
 	while (i < data->n_tokens)
 	{
-		tokens[i] = populate_token(s, tracker, &j);
+		tokens[i] = populate_token(input, tracker, &j);
 		init_token(tokens[i], data);
 		trim_spaces(tokens[i]);
 		trim_quotes(tokens[i]);
@@ -59,23 +62,23 @@ int		create_tokens(t_data *data, t_tok **tokens, char *tracker)
 		check_operators(tokens[i]);
 		i++;
 	}
-	if (tokens[i]->string == false)
+	if (tokens[data->n_tokens - 1]->string == false)
 	{
-		ft_printf(STDERR_FILENO, "syntax error\n");
+		ft_fprintf(STDERR_FILENO, "syntax error1\n");
 		return (1);
 	}
 	i = 1;
 	while (i < data->n_tokens)
 		if (check_files(tokens, i++) == 1)
 			return (1);
-	return (tokens);
+	return (0);
 }
 
-t_tok	*populate_token(char *s, char *tracker, int *j)
+t_tok	*populate_token(char *input, char *tracker, size_t *j)
 {
 	t_tok	*token;
-	int		start;
-	int		len;
+	size_t		start;
+	size_t		len;
 
 	len = 0;
 	token = malloc(sizeof(t_tok));
@@ -95,7 +98,7 @@ t_tok	*populate_token(char *s, char *tracker, int *j)
 		}
 	}
 	token->s = malloc(len + 2);
-	ft_strlcpy(token->s, &s[start], len + 1);
+	ft_strlcpy(token->s, &input[start], len + 1);
 	token->quote = false;
 	return (token);
 }
@@ -105,7 +108,6 @@ void	init_token(t_tok *token, t_data *data)
 	token->data = data;
 	token->quote = false;
 	token->dquote = false;
-	token->argument = false;
 	token->input_operator = false;
 	token->input_file = false;
 	token->output_operator = false;
@@ -114,7 +116,6 @@ void	init_token(t_tok *token, t_data *data)
 	token->append_file = false;
 	token->heredoc_operator = false;
 	token->heredoc_delimiter = false;
-	token->heredoc_text = false;
 	token->pipe = false;
 }
 
@@ -153,8 +154,8 @@ int	count_tokens(char *s, char *tracker)
 	{
 		if (in_quote == false && in_dquote == false)
 		{
-			if (ft_strncmp(&s[i], ">>", 2) == 0
-					|| ft_strncmp(&s[i], "<<", 2) == 0)
+			if (ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<",
+					2) == 0)
 			{
 				in_word = false;
 				counter++;
