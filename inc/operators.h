@@ -15,7 +15,7 @@
 
 typedef struct s_tok t_tok;
 
-void	interpret_operators(t_tok *tokens, int i, int n_tokens);
-void	interpret_files(t_tok *tokens, int i, int n_tokens);
+void	interpret_operators(t_tok *token);
+void	interpret_files(t_tok **tokens, int i);
 
 #endif

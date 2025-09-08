@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
 #include "libft.h"
-#include <stdlib.h>
+#include "token.h"
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-static int	get_len(int len);
+static int	get_len(t_tok *token, int len);
 
 void	trim_quotes(t_tok *token)
 {
@@ -23,9 +24,9 @@ void	trim_quotes(t_tok *token)
 	int		len;
 	int		i;
 
-	len = (int) ft_strlen(token->s);
-	if ((token->s[0] == '"' && token->s[len - 1] == '"')
-			|| (token->s[0] == '\'' && token->s[len - 1] == '\''))
+	len = (int)ft_strlen(token->s);
+	if ((token->s[0] == '"' && token->s[len - 1] == '"') || (token->s[0] == '\''
+			&& token->s[len - 1] == '\''))
 	{
 		if (token->s[0] == '\'' && token->s[len - 1] == '\'')
 			token->quote = true;
@@ -54,7 +55,7 @@ void	trim_spaces(t_tok *token)
 	int		j;
 	int		len;
 
-	len = get_len((int)ft_strlen(token->s));
+	len = get_len(token, (int)ft_strlen(token->s));
 	s = malloc(len + 1);
 	if (s == NULL)
 	{
@@ -75,10 +76,10 @@ void	trim_spaces(t_tok *token)
 	free(s);
 }
 
-static int	get_len(int len)
+static int	get_len(t_tok *token, int len)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (token->s[i] == ' ' && i < len)

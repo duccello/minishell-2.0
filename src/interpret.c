@@ -35,5 +35,13 @@ void	interpret(t_data *data, char *s)
 
 void	init(t_data *data, char *s)
 {
-	tokenize(data, s);
+	size_t	i;
+
+	i = 0;
+	data->tokens = tokenize(data, s);
+	while (i < data->n_tokens)
+	{
+		printf("%s\n", data->tokens[i]->s);
+		i++;
+	}
 }

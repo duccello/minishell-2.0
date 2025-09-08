@@ -15,6 +15,7 @@
 #include "operators.h"
 #include "ft_fprintf.h"
 #include "token.h"
+#include <unistd.h>
 
 void	interpret_operators(t_tok *token)
 {
@@ -34,35 +35,35 @@ void	interpret_operators(t_tok *token)
 		token->string = true;
 }
 
-void interpret_files(t_tok *tokens, int i)
+void interpret_files(t_tok **tokens, int i)
 {
-	if (tokens[i - 1].input_operator == true)
+	if (tokens[i - 1]->input_operator == true)
 	{
 		if (tokens[i]->string == false)
 			ft_fprintf(STDERR_FILENO, "syntax error\n");
 		else
-			tokens[i]->input_file == true;
+			tokens[i]->input_file = true;
 	}
-	else if (tokens[i - 1].output_operator == true)
+	else if (tokens[i - 1]->output_operator == true)
 	{
 		if (tokens[i]->string == false)
 			ft_fprintf(STDERR_FILENO, "syntax error\n");
 		else
-			tokens[i]->output_file == true;
+			tokens[i]->output_file = true;
 	}
-	else if (tokens[i - 1].heredoc_operator == true)
+	else if (tokens[i - 1]->heredoc_operator == true)
 	{
 		if (tokens[i]->string == false)
 			ft_fprintf(STDERR_FILENO, "syntax error\n");
 		else
-			tokens[i]->heredoc_delimiter == true;
+			tokens[i]->heredoc_delimiter = true;
 	}
-	else if (tokens[i - 1].append_operator == true)
+	else if (tokens[i - 1]->append_operator == true)
 	{
 		if (tokens[i]->string == false)
 			ft_fprintf(STDERR_FILENO, "syntax error\n");
 		else
-			tokens[i]->append_file == true;
+			tokens[i]->append_file = true;
 	}
 }
 

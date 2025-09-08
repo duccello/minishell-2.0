@@ -10,76 +10,92 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "data.h"
 #include "expand.h"
-#include "operators.h"
 #include "libft.h"
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
+#include "operators.h"
+#include "token.h"
 #include <readline/readline.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-t_tok	*tokenize(t_data *data, char *s) 
+t_tok	**tokenize(t_data *data, char *s)
 {
-	t_tok	*tokens;
+	t_tok	**tokens;
 	char	*tracker;
 	size_t	i;
+	size_t	j;
 
 	tracker = ft_strdup(s);
 	i = 0;
-	while (tracker[i] != NULL)
+	while (tracker[i] != '\0')
 		tracker[i++] = '-';
 	data->n_tokens = count_tokens(s, tracker);
-	tokens = malloc(sizeof(t_tok) * (data->n_tokens));
+	printf("%s\n%s\n", s, tracker);
+	printf("n_tokens:%zu\n", data->n_tokens);
+	tokens = malloc(sizeof(t_tok *) * (data->n_tokens));
 	if (tokens == NULL)
+	{
+		printf("hello");
 		return (NULL);
+	}
 	i = 0;
 	while (i < data->n_tokens)
 	{
-		tokens[i] = populate_token(&s, &tracker);
-		init_token(&tokens[i]);
-		trim_spaces(&tokens[i]);
-		trim_quotes(&tokens[i]);
-		expand(&tokens[i]);
-		interpret_operators(&tokens[i]);
+		tokens[i] = populate_token(s, tracker, &j);
+		init_token(tokens[i], data);
+		trim_spaces(tokens[i]);
+		trim_quotes(tokens[i]);
+		expand(tokens[i]);
+		interpret_operators(tokens[i]);
 		i++;
 	}
 	i = 1;
 	while (i < data->n_tokens)
-		interpret_files(tokens, i);
+		interpret_files(tokens, i++);
 	return (tokens);
 }
 
-t_tok	populate_token(char **s, char **tracker)
+t_tok	*populate_token(char *s, char *tracker, size_t *j)
 {
-	t_tok	token;
+	t_tok	*token;
 	int		count;
 	int		i;
-	char	*temp;
+	int 	start;
 
-	temp = *s;
+	start = *j;
 	count = 0;
-	while (**tracker != '+' && **s != '\0')
+	token = malloc(sizeof(t_tok));
+	if (token == NULL)
+		return (NULL);
+	while (s[j] != '\0')
 	{
-		count++;
-		(*s)++;
-		(*tracker)++;
+		if (tracker[j] == '+' && j != 0)
+		{
+			j++;
+			while(s[j] != '+')
+			{
+				count++;
+				j++;
+			}
+		}
 	}
-	token.s = malloc(count + 1);
-	token.quote = false;
+	token->s = malloc(count + 1);
+	token->quote = false;
 	i = 0;
 	while (i < count)
 	{
-		token.s[i] = temp[i];
+		token->s[i] = temp[i];
 		i++;
 	}
-	token.s[i] = '\0';
+	token->s[i] = '\0';
 	(*s)++;
 	(*tracker)++;
 	return (token);
 }
 
-void	init_token(t_tok *token)
+void	init_token(t_tok *token, t_data *data)
 {
 	token->data = data;
 	token->quote = false;
@@ -115,7 +131,7 @@ void	toggle_quotes(char c, bool *in_quote, bool *in_dquote)
 	}
 }
 
-int		count_tokens(char *s, char *tracker)
+int	count_tokens(char *s, char *tracker)
 {
 	int		counter;
 	bool	in_quote;
@@ -132,8 +148,8 @@ int		count_tokens(char *s, char *tracker)
 	{
 		if (in_quote == false && in_dquote == false)
 		{
-			if (ft_strncmp(&s[i], ">>", 2) == 0
-					|| ft_strncmp(&s[i], "<<", 2) == 0)
+			if (ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<",
+					2) == 0)
 			{
 				in_word = false;
 				counter++;

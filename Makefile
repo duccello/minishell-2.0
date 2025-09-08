@@ -5,14 +5,17 @@ INCS		=	-Iinc											\
 SRC_DIR		=	src
 OBJ_DIR		=	build
 SRCS		=	banner.c										\
+				built_in.c										\
 				data.c											\
 				expand.c										\
 				interpret.c										\
+				list.c											\
 				main.c											\
 				operators.c										\
 				signals.c										\
 				token.c											\
-				token_trim.c
+				token_trim.c									\
+				utils.c
 SRC_FILES	=	$(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS		=	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
 LIBFT		=	-Llibft -lft

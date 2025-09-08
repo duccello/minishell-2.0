@@ -12,19 +12,19 @@
 
 #ifndef DATA_H
 # define DATA_H
-
-typedef struct s_tok t_tok;
-typedef struct s_node t_node;
+# include <stdio.h>
+typedef struct s_tok	t_tok;
+typedef struct s_node	t_node;
 
 typedef struct s_data
 {
-	t_tok	**tokens;
-	char	**built_ins;
-	t_node	*envp;
-	int		n_tokens;
-	int		ret_val;
-}	t_data;
+	t_tok				**tokens;
+	char				**built_ins;
+	t_node				*envp;
+	size_t				n_tokens;
+	int					ret_val;
+}						t_data;
 
-t_data	*create_data(char **envp);
+t_data					*create_data(char **envp);
 
 #endif
