@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:43:50 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 18:21:37 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 19:30:01 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	create_tokens(t_data *data, t_tok **tokens, char *tracker, char *input)
 	}
 	if (tokens[data->n_tokens - 1]->string == false)
 	{
-		ft_fprintf(STDERR_FILENO, "syntax error1\n");
+		ft_fprintf(STDERR_FILENO, "syntax error\n");
 		return (1);
 	}
 	i = 1;
@@ -76,7 +76,7 @@ int	create_tokens(t_data *data, t_tok **tokens, char *tracker, char *input)
 
 t_tok	*populate_token(char *input, char *tracker, size_t *j)
 {
-	t_tok	*token;
+	t_tok		*token;
 	size_t		start;
 	size_t		len;
 

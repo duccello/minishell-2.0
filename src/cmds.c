@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:53:24 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 18:16:49 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 19:32:45 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ char	**create_argv(t_tok **tokens, t_data *data)
 			counter++;
 		i++;
 	}
-	printf("%zu\n", counter);
 	argv = malloc(sizeof(char *) * (counter + 1));
 	if (argv == NULL)
 		return (NULL);
@@ -88,7 +87,7 @@ void	populate_cmd(t_cmd *cmd, t_tok **tokens)
 	static size_t index;
 
 	if (tokens[index]->pipe == true)
-		(index)++;
+		index++;
 	i = 0;
 	while (index < cmd->data->n_tokens && tokens[index]->pipe == false)
 	{
@@ -102,7 +101,7 @@ void	populate_cmd(t_cmd *cmd, t_tok **tokens)
 			cmd->delimiter = tokens[index]->s;
 		else if (tokens[index]->string == true)
 			cmd->argv[i++] = tokens[index]->s;
-		(index)++;
+		index++;
 	}
 	cmd->argv[i] = NULL;
 }
