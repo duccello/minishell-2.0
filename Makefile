@@ -6,6 +6,8 @@ SRC_DIR		=	src
 OBJ_DIR		=	build
 SRCS		=	banner.c										\
 				built_in.c										\
+				cmds.c											\
+				clean.c											\
 				data.c											\
 				expand.c										\
 				interpret.c										\

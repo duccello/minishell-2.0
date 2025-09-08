@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operators.c                                        :+:      :+:    :+:   */
+/*   fd_and_operators.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:37:56 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 13:31:05 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 16:51:08 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "token.h"
 #include <unistd.h>
 
-void	interpret_operators(t_tok *token)
+void	check_operators(t_tok *token)
 {
 	if (token->quote == true || token->dquote == true)
 		token->string = true;
@@ -35,7 +35,7 @@ void	interpret_operators(t_tok *token)
 		token->string = true;
 }
 
-void interpret_files(t_tok **tokens, int i)
+void	check_files(t_tok **tokens, int i)
 {
 	if (tokens[i - 1]->input_operator == true)
 	{
@@ -66,4 +66,3 @@ void interpret_files(t_tok **tokens, int i)
 			tokens[i]->append_file = true;
 	}
 }
-

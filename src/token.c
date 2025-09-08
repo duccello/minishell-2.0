@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:43:50 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 13:25:54 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/08 16:48:57 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,30 @@ t_tok	**tokenize(t_data *data, char *s)
 	t_tok	**tokens;
 	char	*tracker;
 	size_t	i;
-	int		j;
 
 	tracker = ft_strdup(s);
 	i = 0;
-	j = 0;
 	while (tracker[i] != '\0')
 		tracker[i++] = '-';
 	data->n_tokens = count_tokens(s, tracker);
-	printf("%s\n%s\n", s, tracker);
-	printf("n_tokens:%zu\n", data->n_tokens);
 	tokens = malloc(sizeof(t_tok *) * (data->n_tokens));
 	if (tokens == NULL)
+		return (NULL);
+	if (create_tokens(data, tokens) == 1)
 	{
-		printf("hello");
+		clean_tokens(tokens, data);
 		return (NULL);
 	}
+	return (tokens);
+}
+
+int		create_tokens(t_data *data, t_tok **tokens, char *tracker)
+{
+	int i;
+	int j;
+
 	i = 0;
+	j = 0;
 	while (i < data->n_tokens)
 	{
 		tokens[i] = populate_token(s, tracker, &j);
@@ -49,12 +56,18 @@ t_tok	**tokenize(t_data *data, char *s)
 		trim_spaces(tokens[i]);
 		trim_quotes(tokens[i]);
 		expand(tokens[i]);
-		interpret_operators(tokens[i]);
+		check_operators(tokens[i]);
 		i++;
+	}
+	if (tokens[i]->string == false)
+	{
+		ft_printf(STDERR_FILENO, "syntax error\n");
+		return (1);
 	}
 	i = 1;
 	while (i < data->n_tokens)
-		interpret_files(tokens, i++);
+		if (check_files(tokens, i++) == 1)
+			return (1);
 	return (tokens);
 }
 
@@ -140,8 +153,8 @@ int	count_tokens(char *s, char *tracker)
 	{
 		if (in_quote == false && in_dquote == false)
 		{
-			if (ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<",
-					2) == 0)
+			if (ft_strncmp(&s[i], ">>", 2) == 0
+					|| ft_strncmp(&s[i], "<<", 2) == 0)
 			{
 				in_word = false;
 				counter++;
