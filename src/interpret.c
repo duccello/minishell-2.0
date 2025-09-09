@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 19:00:17 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 19:02:58 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 19:38:35 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void	interpret(t_data *data, char *s)
 	{
 		add_history(s);
 		if (init(data, s) == 0)
+		{
 			execute(data->cmds, data);
+		}
 		destroy(data);
 	}
 }

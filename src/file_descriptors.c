@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 13:46:10 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 14:12:15 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 19:21:13 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	set_fds(t_cmd *c)
 	else
 		c->in_fd = STDIN_FILENO;
 	if (c->in_fd == -1)
-		perror("open infile");
+	{
+		perror("open");
+		c->data->ret_val = 1;
+	}
 	if (c->out_file != NULL)
 		c->out_fd = open(c->out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (c->append_file != NULL)
@@ -39,7 +42,10 @@ void	set_fds(t_cmd *c)
 	else
 		c->out_fd = STDOUT_FILENO;
 	if (c->out_fd == -1)
-		perror("open outfile");
+	{
+		perror("open");
+		c->data->ret_val = 1;
+	}
 }
 
 void	piping_heredoc(t_cmd *c)

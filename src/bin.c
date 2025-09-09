@@ -6,12 +6,13 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 15:32:36 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 16:02:19 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 19:19:59 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bin.h"
 #include "clean.h"
+#include "data.h"
 #include "libft.h"
 #include "list.h"
 #include "signals.h"
@@ -19,6 +20,8 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
+
+#define CMD_NOT_FOUND 127
 
 int	exec_binary(t_cmd *c)
 {
@@ -50,6 +53,7 @@ void	run_child_process(t_cmd *c)
 	execve(c->path, c->argv, c->envp);
 	perror("execve");
 	free(c->path);
-	exit(EXIT_FAILURE);
+	c->data->ret_val = CMD_NOT_FOUND;
+	exit(c->data->ret_val);
 }
 
