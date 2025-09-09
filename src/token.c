@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:43:50 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 09:55:37 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:44:45 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ t_tok	**tokenize(t_data *data, char *input)
 	while (tracker[i] != '\0')
 		tracker[i++] = '-';
 	data->n_tokens = count_tokens(input, tracker);
+	if (data->n_tokens == 0)
+		return (NULL);
 	tokens = malloc(sizeof(t_tok *) * (data->n_tokens));
 	if (tokens == NULL)
 		return (NULL);
@@ -132,6 +134,8 @@ int	count_tokens(char *s, char *tracker)
 	in_word = false;
 	counter = 0;
 	i = 0;
+	while (s[i] == ' ')
+		i++;
 	while (s[i] != '\0' && tracker[i] != '\0')
 	{
 		if (in_quote == false && in_dquote == false)
