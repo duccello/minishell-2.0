@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:02:00 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/04 15:43:31 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 14:35:21 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ void	execute(t_cmd **cmds, t_data *data)
 	while (i < data->n_cmds)
 	{
 		if (cmds[i]->argv[0] == NULL)
-		{
-			ft_fprintf(STDERR_FILENO, "syntax error\n");
-			break ;
-		}
-		if (cmd_is_built_in(cmds[i]->argv[0], data->built_ins) == true)
+			;
+		else if (cmd_is_built_in(cmds[i]->argv[0], data->built_ins) == true)
 			handle_built_in(data, cmds[i]);
 		else
 		//	pid[j++] = exec_binary(cmds[i]);
