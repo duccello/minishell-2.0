@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:29:38 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 16:32:06 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 20:16:45 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define DATA_H
 # define READ 0
 # define WRITE 1
+
 # include <stdio.h>
+# include <stdbool.h>
 
 typedef struct s_cmd	t_cmd;
 typedef struct s_tok	t_tok;
@@ -31,6 +33,7 @@ typedef struct s_data
 	size_t				n_tokens;
 	size_t				n_bins;
 	int					ret_val;
+	bool				error;
 }						t_data;
 
 t_data					*create_data(char **envp);

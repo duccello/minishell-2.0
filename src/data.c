@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:37:52 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 13:19:03 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 20:16:07 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "data.h"
 #include "built_in.h"
 #include <stdlib.h>
+#include <stdbool.h>
 
 t_data	*create_data(char **envp)
 {

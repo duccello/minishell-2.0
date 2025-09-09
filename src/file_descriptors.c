@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 13:46:10 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 19:21:13 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 20:14:33 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	set_fds(t_cmd *c)
 	{
 		perror("open");
 		c->data->ret_val = 1;
+		c->data->error = true;
 	}
 	if (c->out_file != NULL)
 		c->out_fd = open(c->out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -45,6 +46,7 @@ void	set_fds(t_cmd *c)
 	{
 		perror("open");
 		c->data->ret_val = 1;
+		c->data->error = true;
 	}
 }
 

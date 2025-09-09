@@ -6,7 +6,7 @@
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:02:00 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/09 19:54:10 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 20:17:04 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	pids_and_ret(int *pid, int j, t_data *data)
 		while (i < j)
 			waitpid(pid[i++], &status, 0);
 		g_flag = 0;
-		if (data->ret_val == 0)
+		if (data->error == false)
 			data->ret_val = get_return_val(status);
 		free(pid);
 	}
