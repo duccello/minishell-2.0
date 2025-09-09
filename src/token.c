@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:43:50 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 14:22:57 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:14:59 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_tok	**tokenize(t_data *data, char *input)
 	char	*tracker;
 	size_t	i;
 
+	if (input == NULL)
+		return (NULL);
 	tracker = ft_strdup(input);
 	i = 0;
 	while (tracker[i] != '\0')
@@ -42,9 +44,10 @@ t_tok	**tokenize(t_data *data, char *input)
 		return (NULL);
 	if (create_tokens(data, tokens, tracker, input) == 1)
 	{
-		clean_tokens(tokens, data);
+		free_tokens(tokens, data);
 		return (NULL);
 	}
+	free(tracker);
 	return (tokens);
 }
 
@@ -120,4 +123,5 @@ void	init_token(t_tok *token, t_data *data)
 	token->heredoc_operator = false;
 	token->heredoc_delimiter = false;
 	token->pipe = false;
+	token->string = false;
 }

@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:29:38 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 17:26:58 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:32:06 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef struct s_node	t_node;
 
 typedef struct s_data
 {
-	t_cmd				**cmds;
 	t_tok				**tokens;
+	t_cmd				**cmds;
 	t_node				*envp;
 	char				**built_ins;
 	int					(*pipfd)[2];

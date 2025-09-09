@@ -6,12 +6,13 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:07:06 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 16:16:45 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:00:47 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 #include "cmds.h"
+#include "clean.h"
 #include "data.h"
 #include "execute.h"
 #include "interpret.h"
@@ -34,6 +35,7 @@ void	interpret(t_data *data, char *s)
 		add_history(s);
 		if (init(data, s) == 0)
 			execute(data->cmds, data);
+		destroy(data);
 	}
 }
 
@@ -50,3 +52,16 @@ int		init(t_data *data, char *s)
 		return (1);
 	return (0);
 }
+
+void	destroy(t_data *data)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < data->n_cmds)
+		free_cmd(data->cmds[i++]);
+	free(data->cmds);
+	free_tokens(data->tokens, data);
+	free(data->pipfd);
+}
+

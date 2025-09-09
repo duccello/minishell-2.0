@@ -6,13 +6,13 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 14:46:31 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/03 14:59:11 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:57:39 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "list.h"
-#include "stddef.h"
+#include "clean.h"
 #include <stdlib.h>
 
 t_node	*create_list(char **arr)
@@ -26,6 +26,11 @@ t_node	*create_list(char **arr)
 	while (arr[i] != NULL)
 	{
 		node = create_node(arr[i]);
+		if (node == NULL)
+		{
+			free_list(list);
+			return (NULL);
+		}
 		append_node(&list, node);
 		i++;
 	}
@@ -67,6 +72,7 @@ void	delete_node(t_node **list, char *s, int len)
 	if (ft_strncmp(prev->s, s, len) == 0)
 	{
 		*list = curr;
+		free(prev->s);
 		free(prev);
 		return ;
 	}
@@ -75,6 +81,7 @@ void	delete_node(t_node **list, char *s, int len)
 		if (ft_strncmp(curr->s, s, len) == 0)
 		{
 			prev->next = curr->next;
+			free(curr->s);
 			free(curr);
 			break ;
 		}

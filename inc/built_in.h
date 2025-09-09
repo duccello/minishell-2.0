@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 17:57:46 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 13:20:39 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:27:10 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void					echo(t_cmd *cmd);
 void					ft_export(t_cmd *cmd);
 void					env(t_cmd *cmd);
 void					unset(t_cmd *cmd);
-void					ft_exit(t_cmd *cmd);
+void					ft_exit(t_data *data, t_cmd *cmd);
 
 #endif

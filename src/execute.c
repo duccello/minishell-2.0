@@ -6,7 +6,7 @@
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:02:00 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/09 15:29:29 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:07:12 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	pids_and_ret(int *pid, int j, t_data *data)
 	int	i;
 	int	status;
 
+	status = 0;
 	i = 0;
 	if (pid != NULL)
 	{

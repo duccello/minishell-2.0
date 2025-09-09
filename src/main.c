@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:58:20 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/05 13:11:08 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:50:32 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "signals.h"
 #include "interpret.h"
 #include "data.h"
+#include "clean.h"
 
 int	main(int argc, char *argv[], char *envp[])
 {

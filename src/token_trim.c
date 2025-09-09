@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:10:53 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/05 14:25:25 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:39:16 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	trim_quotes(t_tok *token)
 			i++;
 		}
 		s[i] = '\0';
+		free(token->s);
+		token->s = NULL;
 		token->s = ft_strdup(s);
 		free(s);
 	}
@@ -72,6 +74,8 @@ void	trim_spaces(t_tok *token)
 		j++;
 	}
 	s[j] = '\0';
+	free(token->s);
+	token->s = NULL;
 	token->s = ft_strdup(s);
 	free(s);
 }

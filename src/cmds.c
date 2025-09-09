@@ -6,13 +6,14 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:53:24 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 15:58:55 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:47:20 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmds.h"
 #include "data.h"
 #include "files.h"
+#include "libft.h"
 #include "token.h"
 #include "utils.h"
 #include <stdio.h>
@@ -103,15 +104,15 @@ void	populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index)
 	while (*index < cmd->data->n_tokens && tokens[*index]->pipe == false)
 	{
 		if (tokens[*index]->input_file == true)
-			cmd->in_file = tokens[*index]->s;
+			cmd->in_file = ft_strdup(tokens[*index]->s);
 		else if (tokens[*index]->output_file == true)
-			cmd->out_file = tokens[*index]->s;
+			cmd->out_file = ft_strdup(tokens[*index]->s);
 		else if (tokens[*index]->append_file == true)
-			cmd->append_file = tokens[*index]->s;
+			cmd->append_file = ft_strdup(tokens[*index]->s);
 		else if (tokens[*index]->heredoc_delimiter == true)
-			cmd->delimiter = tokens[*index]->s;
+			cmd->delimiter = ft_strdup(tokens[*index]->s);
 		else if (tokens[*index]->string == true)
-			cmd->argv[i++] = tokens[*index]->s;
+			cmd->argv[i++] = ft_strdup(tokens[*index]->s);
 		(*index)++;
 	}
 	cmd->argv[i] = NULL;
