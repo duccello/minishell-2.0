@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:43:50 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 10:44:45 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 11:09:42 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,52 +119,4 @@ void	init_token(t_tok *token, t_data *data)
 	token->heredoc_operator = false;
 	token->heredoc_delimiter = false;
 	token->pipe = false;
-}
-
-int	count_tokens(char *s, char *tracker)
-{
-	int		counter;
-	bool	in_quote;
-	bool	in_dquote;
-	bool	in_word;
-	int		i;
-
-	in_quote = false;
-	in_dquote = false;
-	in_word = false;
-	counter = 0;
-	i = 0;
-	while (s[i] == ' ')
-		i++;
-	while (s[i] != '\0' && tracker[i] != '\0')
-	{
-		if (in_quote == false && in_dquote == false)
-		{
-			if (ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<",
-					2) == 0)
-			{
-				in_word = false;
-				counter++;
-				tracker[i] = '+';
-				i++;
-			}
-			else if (s[i] == '>' || s[i] == '<' || s[i] == '|')
-			{
-				in_word = false;
-				counter++;
-				tracker[i] = '+';
-			}
-			else if (s[i] != ' ' && in_word == false)
-			{
-				in_word = true;
-				counter++;
-				tracker[i] = '+';
-			}
-			else if (s[i] == ' ' && in_word == true)
-				in_word = false;
-		}
-		toggle_quotes(s[i], &in_quote, &in_dquote);
-		i++;
-	}
-	return (counter);
 }

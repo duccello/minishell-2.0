@@ -16,6 +16,7 @@ SRCS		=	banner.c										\
 				fd_and_operators.c								\
 				signals.c										\
 				token.c											\
+				token_count.c									\
 				token_trim.c									\
 				token_quotes.c									\
 				utils.c
