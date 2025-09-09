@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/05 13:07:06 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 18:00:47 by sgaspari         ###   ########.fr       */
+/*   Created: 2025/09/09 19:00:17 by sgaspari          #+#    #+#             */
+/*   Updated: 2025/09/09 19:02:58 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,14 @@
 
 void	interpret(t_data *data, char *s)
 {
+	size_t	i;
+
 	if (s == NULL)
 		exit(EXIT_SUCCESS);
-	if (s[0] == '\0')
+	i = 0;
+	while (s[i] == ' ')
+		i++;
+	if (s[i] == '\0')
 		;
 	else
 	{
