@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:55:25 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 18:18:42 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:27:52 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ typedef struct s_tok t_tok;
 
 typedef struct s_cmd
 {	
-	t_data	*data;							// echo "hello world" > file
+	t_data	*data;
 	t_tok	**tokens;
-	char	**argv;							// argv[0] = "echo"; argv[1] = "hello world"
-	char	*in_file;						// NULL
-	char	*out_file;						// file
+	char	**argv;
+	char	*in_file;
+	char	*out_file;
 	char	*append_file;
 	char	*delimiter;
 }	t_cmd;
 
 t_cmd	**create_cmds(t_data *data);
 size_t	count_cmds(t_tok **tokens, t_data *data);
-t_cmd	*create_cmd(t_tok **tokens, t_data *data);
-char	**create_argv(t_tok **tokens, t_data *data);
-void	populate_cmd(t_cmd *cmd, t_tok **tokens);
+t_cmd	*create_cmd(t_tok **tokens, t_data *data, size_t *i, size_t *j); 
+char	**create_argv(t_tok **tokens, t_data *data, size_t *index);
+void	populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:53:24 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 19:32:45 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:33:12 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,19 @@
 t_cmd	**create_cmds(t_data *data)
 {
 	t_cmd	**cmds;
-	size_t	i;
+	size_t	cmd_i;
+	size_t	cre_i;
+	size_t	pop_i;
 
+	cre_i = 0;
+	pop_i = 0;
 	data->n_cmds = count_cmds(data->tokens, data);
 	cmds = malloc(sizeof(t_cmd *) * data->n_cmds);
 	if (cmds == NULL)
 		return (NULL);
-	i = 0;
-	while (i < data->n_cmds)
-		cmds[i++] = create_cmd(data->tokens, data);
+	cmd_i = 0;
+	while (cmd_i < data->n_cmds)
+		cmds[cmd_i++] = create_cmd(data->tokens, data, &cre_i, &pop_i);
 	return (cmds);
 }
 
@@ -47,7 +51,7 @@ size_t	count_cmds(t_tok **tokens, t_data *data)
 	return (counter);
 }
 
-t_cmd	*create_cmd(t_tok **tokens, t_data *data)
+t_cmd	*create_cmd(t_tok **tokens, t_data *data, size_t *i, size_t *j)
 {
 	t_cmd	*cmd;
 
@@ -55,25 +59,24 @@ t_cmd	*create_cmd(t_tok **tokens, t_data *data)
 	if (cmd == NULL)
 		return (NULL);
 	cmd->data = data;
-	cmd->argv = create_argv(tokens, data);
-	populate_cmd(cmd, tokens);
+	cmd->argv = create_argv(tokens, data, i);
+	populate_cmd(cmd, tokens, j);
 	return (cmd);
 }
 
-char	**create_argv(t_tok **tokens, t_data *data)
+char	**create_argv(t_tok **tokens, t_data *data, size_t *index)
 {
 	char			**argv;
 	size_t			counter;
-	static size_t	i;
 
 	counter = 0;
-	if (tokens[i]->pipe == true)
-		i++;
-	while (i < data->n_tokens && tokens[i]->pipe == false)
+	if (tokens[*index]->pipe == true)
+		(*index)++;
+	while (*index < data->n_tokens && tokens[*index]->pipe == false)
 	{
-		if (tokens[i]->string == true)
+		if (tokens[*index]->string == true)
 			counter++;
-		i++;
+		(*index)++;
 	}
 	argv = malloc(sizeof(char *) * (counter + 1));
 	if (argv == NULL)
@@ -81,27 +84,26 @@ char	**create_argv(t_tok **tokens, t_data *data)
 	return (argv);
 }
 
-void	populate_cmd(t_cmd *cmd, t_tok **tokens)
+void	populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index)
 {
 	size_t i;
-	static size_t index;
 
-	if (tokens[index]->pipe == true)
-		index++;
+	if (tokens[*index]->pipe == true)
+		(*index)++;
 	i = 0;
-	while (index < cmd->data->n_tokens && tokens[index]->pipe == false)
+	while (*index < cmd->data->n_tokens && tokens[*index]->pipe == false)
 	{
-		if (tokens[index]->input_file == true)
-			cmd->in_file = tokens[index]->s;
-		else if (tokens[index]->output_file == true)
-			cmd->out_file = tokens[index]->s;
-		else if (tokens[index]->append_file == true)
-			cmd->append_file = tokens[index]->s;
-		else if (tokens[index]->heredoc_delimiter == true)
-			cmd->delimiter = tokens[index]->s;
-		else if (tokens[index]->string == true)
-			cmd->argv[i++] = tokens[index]->s;
-		index++;
+		if (tokens[*index]->input_file == true)
+			cmd->in_file = tokens[*index]->s;
+		else if (tokens[*index]->output_file == true)
+			cmd->out_file = tokens[*index]->s;
+		else if (tokens[*index]->append_file == true)
+			cmd->append_file = tokens[*index]->s;
+		else if (tokens[*index]->heredoc_delimiter == true)
+			cmd->delimiter = tokens[*index]->s;
+		else if (tokens[*index]->string == true)
+			cmd->argv[i++] = tokens[*index]->s;
+		(*index)++;
 	}
 	cmd->argv[i] = NULL;
 }
