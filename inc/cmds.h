@@ -15,24 +15,29 @@
 
 # include <stdio.h>
 
-typedef struct s_data t_data;
-typedef struct s_tok t_tok;
+typedef struct s_data	t_data;
+typedef struct s_tok	t_tok;
 
 typedef struct s_cmd
-{	
-	t_data	*data;
-	t_tok	**tokens;
-	char	**argv;
-	char	*in_file;
-	char	*out_file;
-	char	*append_file;
-	char	*delimiter;
-}	t_cmd;
+{
+	t_data				*data;
+	t_tok				**tokens;
+	char				**argv;
+	char				*paths;
+	char				*in_file;
+	char				*out_file;
+	char				*append_file;
+	char				*delimiter;
+	int					in_fd;
+	int					out_fd;
+}						t_cmd;
 
-t_cmd	**create_cmds(t_data *data);
-size_t	count_cmds(t_tok **tokens, t_data *data);
-t_cmd	*create_cmd(t_tok **tokens, t_data *data, size_t *i, size_t *j); 
-char	**create_argv(t_tok **tokens, t_data *data, size_t *index);
-void	populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index);
+t_cmd					**create_cmds(t_data *data);
+size_t					count_cmds(t_tok **tokens, t_data *data);
+t_cmd					*create_cmd(t_tok **tokens, t_data *data, size_t *i,
+							size_t *j);
+char					**create_argv(t_tok **tokens, t_data *data,
+							size_t *index);
+void					populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index);
 
 #endif

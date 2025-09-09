@@ -93,4 +93,3 @@ static int	handle_append(t_tok *token)
 	}
 	return (0);
 }
-

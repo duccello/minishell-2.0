@@ -15,18 +15,18 @@
 
 # include <stdbool.h>
 
-typedef struct s_cmd t_cmd;
-typedef struct s_data t_data;
+typedef struct s_cmd	t_cmd;
+typedef struct s_data	t_data;
 
-char	**create_built_ins(void);
-void	handle_built_in(t_data *data, t_cmd *cmd);
-bool	cmd_is_built_in(char *s, char **built_ins);
-int		cd(t_cmd *cmd);
-void	pwd(void);
-void	echo(t_cmd *cmd);
-void	ft_export(t_cmd *cmd);
-void	env(t_cmd *cmd);
-void	unset(t_cmd *cmd);
-void	ft_exit(t_cmd *cmd);
+char					**create_built_ins(void);
+void					handle_built_in(t_data *data, t_cmd *cmd);
+bool					cmd_is_built_in(char *s, char **built_ins);
+int						cd(t_cmd *cmd);
+void					pwd(void);
+void					echo(t_cmd *cmd);
+void					ft_export(t_cmd *cmd);
+void					env(t_cmd *cmd);
+void					unset(t_cmd *cmd);
+void					ft_exit(t_cmd *cmd);
 
 #endif

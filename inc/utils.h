@@ -13,10 +13,10 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-typedef struct s_node t_node;
+typedef struct s_node	t_node;
 
-int		char_counter(char *input, char c);
-char	**create_array(t_node *envp);
-int		find_equal(char *s);
+int						char_counter(char *input, char c);
+char					**create_array(t_node *envp);
+int						find_equal(char *s);
 
 #endif

@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.h                                           :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 14:42:23 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/08/29 15:20:24 by sgaspari         ###   ########.fr       */
+/*   Created: 2025/09/01 12:02:04 by sgaspari          #+#    #+#             */
+/*   Updated: 2025/09/01 12:10:19 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAND_H
-# define EXPAND_H
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include "libft.h"
+#include "ft_fprintf.h"
+#include "built_in.h"
+#include "cmds.h"
 
-typedef struct s_tok	t_tok;
+void	ft_exit(t_cmd *cmd)
+{
+	uint8_t	status;
 
-void					expand(t_tok *token);
-char					*expand_var(t_tok *token);
-
-#endif
+	ft_fprintf(cmd->out_fd, "exit\n");
+	if (cmd->argv[1] == NULL)
+		exit (EXIT_SUCCESS);
+	else
+	{
+		status = (uint8_t) ft_atoi(cmd->argv[1]);
+		exit (status);
+	}
+}

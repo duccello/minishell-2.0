@@ -10,26 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
+#include "built_in.h"
 #include "cmds.h"
+#include "data.h"
+#include "execute.h"
 #include "interpret.h"
 #include "list.h"
-#include "built_in.h"
+#include "pipes.h"
 #include "token.h"
-#include <readline/readline.h>
 #include <readline/history.h>
+#include <readline/readline.h>
 #include <stdlib.h>
 
 void	interpret(t_data *data, char *s)
 {
 	if (s == NULL)
-		exit (EXIT_SUCCESS);
+		exit(EXIT_SUCCESS);
 	if (s[0] == '\0')
 		;
 	else
 	{
 		add_history(s);
 		init(data, s);
+		execute(data->cmds, data);
 	}
 }
 
@@ -39,7 +42,5 @@ void	init(t_data *data, char *s)
 	if (data->tokens == NULL)
 		return ;
 	data->cmds = create_cmds(data);
-	for (size_t i = 0; i < data->n_cmds; i++)
-		for (size_t j = 0; data->cmds[i]->argv[j] != NULL; j++)
-			printf("cmd[%zu]: argv[%zu]: %s\n", i, j, data->cmds[i]->argv[j]);
+	create_pipes(data);
 }

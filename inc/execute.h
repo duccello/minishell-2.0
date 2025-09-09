@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data.h                                             :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/05 13:29:38 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 17:26:58 by sgaspari         ###   ########.fr       */
+/*   Created: 2025/08/26 15:37:40 by sgaspari          #+#    #+#             */
+/*   Updated: 2025/08/26 15:45:33 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_H
-# define DATA_H
-# define READ 0
-# define WRITE 1
-# include <stdio.h>
+#ifndef EXEC_H
+# define EXEC_H
 
-typedef struct s_cmd	t_cmd;
-typedef struct s_tok	t_tok;
-typedef struct s_node	t_node;
+# include "cmds.h"
+# include "data.h"
 
-typedef struct s_data
-{
-	t_cmd				**cmds;
-	t_tok				**tokens;
-	t_node				*envp;
-	char				**built_ins;
-	int					(*pipfd)[2];
-	size_t				n_cmds;
-	size_t				n_tokens;
-	int					ret_val;
-}						t_data;
-
-t_data					*create_data(char **envp);
+void	execute(t_cmd **cmds, t_data *data);
+void	pids_and_ret(int *pid, int j, t_data *data);
+void	allocate_pids(t_data *data, int **pid);
 
 #endif

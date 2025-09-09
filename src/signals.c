@@ -38,16 +38,15 @@ void	handle_signals(void)
 void	handle_sigint(int signum)
 {
 	(void)signum;
- 	if (g_flag == 1)
+	if (g_flag == 1)
 	{
 		write(1, "\n", 1);
 	}
 	else
-	{ 
+	{
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay(); 
+		rl_redisplay();
 	}
 }
-

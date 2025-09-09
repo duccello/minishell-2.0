@@ -56,10 +56,11 @@ void	free_cmd(t_cmd *c)
 	c = NULL;
 }
 */
+
 void	free_list(t_node *list)
 {
-	t_node *curr;
-	t_node *prev;
+	t_node	*curr;
+	t_node	*prev;
 
 	prev = list;
 	curr = prev->next;
@@ -94,4 +95,3 @@ void	clean_data(t_data *data)
 	if (data->built_ins != NULL)
 		free_array(data->built_ins);
 }
-

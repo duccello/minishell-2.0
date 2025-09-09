@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd_and_operators.h                                 :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/05 14:38:45 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 16:51:22 by sgaspari         ###   ########.fr       */
+/*   Created: 2025/08/23 13:31:40 by sgaspari          #+#    #+#             */
+/*   Updated: 2025/09/03 15:00:03 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FD_AND_OPERATORS_H
-# define FD_AND_OPERATORS_H
+#include "cmds.h"
+#include "data.h"
+#include "libft.h"
+#include "list.h"
+#include <stdlib.h>
 
-typedef struct s_tok	t_tok;
+void	unset(t_cmd *p)
+{
+	char	*s;
 
-void					check_operators(t_tok *token);
-int						check_files(t_tok **tokens, int i);
-
-#endif
+	s = ft_strjoin(p->argv[1], "=");
+	delete_node(&p->data->envp, s, ft_strlen(s));
+	free(s);
+}

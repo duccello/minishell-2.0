@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.h                                           :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 14:42:23 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/08/29 15:20:24 by sgaspari         ###   ########.fr       */
+/*   Created: 2025/08/23 12:54:55 by sgaspari          #+#    #+#             */
+/*   Updated: 2025/08/29 15:48:51 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAND_H
-# define EXPAND_H
+#include "cmds.h"
+#include "data.h"
+#include "ft_fprintf.h"
+#include "list.h"
+#include <unistd.h>
 
-typedef struct s_tok	t_tok;
+void	env(t_cmd *cmd)
+{
+	t_node	*curr;
 
-void					expand(t_tok *token);
-char					*expand_var(t_tok *token);
-
-#endif
+	curr = cmd->data->envp;
+	while (curr != NULL)
+	{
+		ft_fprintf(cmd->out_fd, "%s\n", curr->s);
+		curr = curr->next;
+	}
+}

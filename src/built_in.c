@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "built_in.h"
+#include "cmds.h"
+#include "data.h"
 #include "libft.h"
 #include "macros.h"
 #include "signals.h"
@@ -18,8 +20,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "data.h"
-//#include "cmd.h"
 
 char	**create_built_ins(void)
 {
@@ -38,7 +38,7 @@ char	**create_built_ins(void)
 	arr[NUM_BUILT_INS] = NULL;
 	return (arr);
 }
-/* 
+
 void	handle_built_in(t_data *data, t_cmd *cmd)
 {
 	data->ret_val = 0;
@@ -48,8 +48,8 @@ void	handle_built_in(t_data *data, t_cmd *cmd)
 	if (ft_strncmp(cmd->argv[0], data->built_ins[CD], ft_strlen(cmd->argv[0])
 			+ 1) == 0)
 		data->ret_val = cd(cmd);
-	if (ft_strncmp(cmd->argv[0], data->built_ins[PWD],
-			ft_strlen(cmd->argv[0]) + 1) == 0)
+	if (ft_strncmp(cmd->argv[0], data->built_ins[PWD], ft_strlen(cmd->argv[0])
+			+ 1) == 0)
 		pwd();
 	if (ft_strncmp(cmd->argv[0], data->built_ins[EXPORT],
 			ft_strlen(cmd->argv[0]) + 1) == 0)
@@ -63,12 +63,12 @@ void	handle_built_in(t_data *data, t_cmd *cmd)
 	if (ft_strncmp(cmd->argv[0], data->built_ins[EXIT], ft_strlen(cmd->argv[0])
 			+ 1) == 0)
 		ft_exit(cmd);
-} */
+}
 
 bool	cmd_is_built_in(char *s, char **built_ins)
 {
 	size_t	i;
-	
+
 	if (s == NULL)
 		return (false);
 	i = 0;

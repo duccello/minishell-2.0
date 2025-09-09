@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.h                                           :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 14:42:23 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/08/29 15:20:24 by sgaspari         ###   ########.fr       */
+/*   Created: 2025/08/22 12:39:54 by sgaspari          #+#    #+#             */
+/*   Updated: 2025/09/01 13:49:43 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAND_H
-# define EXPAND_H
+#include "cmds.h"
+#include "ft_fprintf.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-typedef struct s_tok	t_tok;
+void	pwd(t_cmd *cmd)
+{
+	char	*s;
 
-void					expand(t_tok *token);
-char					*expand_var(t_tok *token);
-
-#endif
+	s = getcwd(NULL, 0);
+	ft_fprintf(cmd->out_fd, "%s\n", s);
+	free(s);
+}

@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
-#include "token.h"
 #include "libft.h"
+#include "token.h"
+#include <stdbool.h>
 
 static int	find_new_token(char *s, bool *in_word, int *counter, char *c);
-static void handle_operator(bool *in_word, int *counter, char *c);
+static void	handle_operator(bool *in_word, int *counter, char *c);
 static void	handle_character(bool *in_word, int *counter, char *c);
 
 int	count_tokens(char *s, char *tracker)
@@ -62,7 +62,7 @@ static int	find_new_token(char *s, bool *in_word, int *counter, char *c)
 	return (i);
 }
 
-static void handle_operator(bool *in_word, int *counter, char *c)
+static void	handle_operator(bool *in_word, int *counter, char *c)
 {
 	*in_word = false;
 	(*counter)++;

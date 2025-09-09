@@ -13,15 +13,15 @@
 #ifndef CLEAN_H
 # define CLEAN_H
 
-typedef struct s_data t_data;
-typedef struct s_cmd t_cmd;
-typedef struct s_node t_node;
-typedef struct s_tok t_tok;
+typedef struct s_data	t_data;
+typedef struct s_cmd	t_cmd;
+typedef struct s_node	t_node;
+typedef struct s_tok	t_tok;
 
-void	clean_data(t_data *data);
-void	clean_tokens(t_tok **tokens, t_data *data);
-void	free_list(t_node *list);
-void	free_cmd(t_cmd *c);
-void	free_array(char **c);
+void					clean_data(t_data *data);
+void					clean_tokens(t_tok **tokens, t_data *data);
+void					free_list(t_node *list);
+void					free_cmd(t_cmd *c);
+void					free_array(char **c);
 
 #endif

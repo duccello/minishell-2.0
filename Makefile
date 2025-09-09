@@ -5,20 +5,32 @@ INCS		=	-Iinc											\
 SRC_DIR		=	src
 OBJ_DIR		=	build
 SRCS		=	banner.c										\
+				bin.c											\
 				built_in.c										\
-				cmds.c											\
+				cd.c											\
 				clean.c											\
+				cmds.c											\
 				data.c											\
+				echo.c											\
+				env.c											\
+				execute.c										\
+				exit.c											\
 				expand.c										\
+				export.c										\
+				file_descriptors.c								\
+				files.c											\
 				interpret.c										\
 				list.c											\
 				main.c											\
-				fd_and_operators.c								\
+				operators.c										\
+				pipes.c											\
+				pwd.c											\
 				signals.c										\
 				token.c											\
 				token_count.c									\
 				token_trim.c									\
 				token_quotes.c									\
+				unset.c											\
 				utils.c
 SRC_FILES	=	$(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS		=	$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))

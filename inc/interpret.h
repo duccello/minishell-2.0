@@ -13,9 +13,9 @@
 #ifndef INTERPRET_H
 # define INTERPRET_H
 
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
-void	interpret(t_data *data, char *s);
-void	init(t_data *data, char *s);
+void					interpret(t_data *data, char *s);
+void					init(t_data *data, char *s);
 
 #endif

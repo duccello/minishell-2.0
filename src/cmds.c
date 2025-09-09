@@ -12,6 +12,7 @@
 
 #include "cmds.h"
 #include "data.h"
+#include "files.h"
 #include "token.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,13 +62,14 @@ t_cmd	*create_cmd(t_tok **tokens, t_data *data, size_t *i, size_t *j)
 	cmd->data = data;
 	cmd->argv = create_argv(tokens, data, i);
 	populate_cmd(cmd, tokens, j);
+	set_fds(cmd);
 	return (cmd);
 }
 
 char	**create_argv(t_tok **tokens, t_data *data, size_t *index)
 {
-	char			**argv;
-	size_t			counter;
+	char	**argv;
+	size_t	counter;
 
 	counter = 0;
 	if (tokens[*index]->pipe == true)
@@ -86,7 +88,7 @@ char	**create_argv(t_tok **tokens, t_data *data, size_t *index)
 
 void	populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index)
 {
-	size_t i;
+	size_t	i;
 
 	if (tokens[*index]->pipe == true)
 		(*index)++;

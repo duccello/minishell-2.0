@@ -54,7 +54,8 @@ char	*expand_var(t_tok *token)
 	while (curr != NULL)
 	{
 		len_list = find_equal(curr->s);
-		if (ft_strncmp(curr->s, &(token->s[1]), len_tok) == 0 && len_tok == len_list)
+		if (ft_strncmp(curr->s, &(token->s[1]), len_tok) == 0
+			&& len_tok == len_list)
 			s = ft_strdup(&(curr->s[len_list + 1]));
 		curr = curr->next;
 	}
