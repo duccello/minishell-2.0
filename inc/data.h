@@ -29,6 +29,7 @@ typedef struct s_data
 	int					(*pipfd)[2];
 	size_t				n_cmds;
 	size_t				n_tokens;
+	size_t				n_bins;
 	int					ret_val;
 }						t_data;
 

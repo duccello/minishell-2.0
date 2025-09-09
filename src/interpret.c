@@ -18,6 +18,7 @@
 #include "list.h"
 #include "pipes.h"
 #include "token.h"
+#include "utils.h"
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <stdlib.h>
@@ -42,5 +43,6 @@ void	init(t_data *data, char *s)
 	if (data->tokens == NULL)
 		return ;
 	data->cmds = create_cmds(data);
+	data->n_bins = count_bins(data);
 	create_pipes(data);
 }

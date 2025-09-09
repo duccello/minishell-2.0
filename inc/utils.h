@@ -18,5 +18,6 @@ typedef struct s_node	t_node;
 int						char_counter(char *input, char c);
 char					**create_array(t_node *envp);
 int						find_equal(char *s);
+size_t					count_bins(t_data *data);
 
 #endif

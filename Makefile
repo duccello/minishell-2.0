@@ -23,6 +23,7 @@ SRCS		=	banner.c										\
 				list.c											\
 				main.c											\
 				operators.c										\
+				path.c											\
 				pipes.c											\
 				pwd.c											\
 				signals.c										\

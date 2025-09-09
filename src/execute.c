@@ -40,8 +40,7 @@ void	execute(t_cmd **cmds, t_data *data)
 		else if (cmd_is_built_in(cmds[i]->argv[0], data->built_ins) == true)
 			handle_built_in(data, cmds[i]);
 		else
-		//	pid[j++] = exec_binary(cmds[i]);
-			;
+			pid[j++] = exec_binary(cmds[i]);
 		if (i != 0)
 			close(data->pipfd[i - 1][READ]);
 		if (i < data->n_cmds - 1)
@@ -54,7 +53,7 @@ void	execute(t_cmd **cmds, t_data *data)
 void	allocate_pids(t_data *data, int **pid)
 {
 	if (data->n_cmds > 0)
-		*pid = malloc(sizeof(int) * data->n_cmds); // this is wrong
+		*pid = malloc(sizeof(int) * data->n_bins);
 	else
 		*pid = NULL;
 }

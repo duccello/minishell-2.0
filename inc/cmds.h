@@ -17,13 +17,14 @@
 
 typedef struct s_data	t_data;
 typedef struct s_tok	t_tok;
-
+typedef struct s_node	t_node;
 typedef struct s_cmd
 {
 	t_data				*data;
 	t_tok				**tokens;
 	char				**argv;
-	char				*paths;
+	char				**envp;
+	char				*path;
 	char				*in_file;
 	char				*out_file;
 	char				*append_file;
@@ -39,5 +40,6 @@ t_cmd					*create_cmd(t_tok **tokens, t_data *data, size_t *i,
 char					**create_argv(t_tok **tokens, t_data *data,
 							size_t *index);
 void					populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index);
+char					*create_path(t_cmd *cmd);
 
 #endif

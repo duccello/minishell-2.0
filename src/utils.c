@@ -10,10 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "built_in.h"
+#include "cmds.h"
+#include "data.h"
+#include "libft.h"
+#include "list.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.h"
-#include "libft.h"
+
+size_t	count_bins(t_data *data)
+{
+	size_t	i;
+	size_t	bins;
+
+	i = 0;
+	bins = 0;
+	while (i < data->n_cmds)
+	{
+		if (data->cmds[i]->argv[0] != NULL
+			&& cmd_is_built_in(data->cmds[i]->argv[0],
+				data->built_ins) == false)
+			bins++;
+		i++;
+	}
+	return (bins);
+}
 
 int	char_counter(char *input, char c)
 {

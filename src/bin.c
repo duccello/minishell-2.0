@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
-/* 
+
 int	exec_binary(t_cmd *c)
 {
 	int		pid;
@@ -34,8 +34,6 @@ int	exec_binary(t_cmd *c)
 
 void	run_child_process(t_cmd *c)
 {
-	char	*path;
-
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (c->in_fd != STDIN_FILENO)
@@ -48,36 +46,9 @@ void	run_child_process(t_cmd *c)
 		dup2(c->out_fd, STDOUT_FILENO);
 		close(c->out_fd);
 	}
-	path = join_path(c->argv[0], c->paths, c);
-	execve(path, c->argv, c->envp);
+	execve(c->path, c->argv, c->envp);
 	perror("execve");
-	free(path);
+	free(c->path);
 	exit(EXIT_FAILURE);
 }
- */
-/* char	*join_path(char *cmd, char **paths, t_cmd *c)
-{
-	char	*tmp;
-	char	*full;
-	int		i;
 
-	i = 0;
-	if (cmd == NULL)
-	{
-		free_cmd(c);
-		return (NULL);
-	}
-	if (ft_strchr(cmd, '/'))
-		return (ft_strdup(cmd));
-	while (paths[i])
-	{
-		tmp = ft_strjoin(paths[i++], "/");
-		full = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (access(full, X_OK) == 0)
-			return (full);
-		free(full);
-	}
-	perror("access");
-	return (NULL);
-} */

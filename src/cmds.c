@@ -14,6 +14,7 @@
 #include "data.h"
 #include "files.h"
 #include "token.h"
+#include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -65,6 +66,8 @@ t_cmd	*create_cmd(t_tok **tokens, t_data *data, size_t *i, size_t *j)
 	cmd->out_file = NULL;
 	cmd->append_file = NULL;
 	cmd->delimiter = NULL;
+	cmd->path = create_path(cmd);
+	cmd->envp = create_array(data->envp);
 	populate_cmd(cmd, tokens, j);
 	set_fds(cmd);
 	return (cmd);
