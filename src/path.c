@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:34:32 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/04 13:39:16 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:03:31 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,10 @@ static char	*join_path(char *cmd, char **paths, t_cmd *c)
 	char	*full;
 	int		i;
 
-	i = 0;
-	if (cmd == NULL)
-	{
-		(void)c;
-		return (NULL);
-	}
+	(void)c;
 	if (ft_strchr(cmd, '/'))
 		return (ft_strdup(cmd));
+	i = 0;
 	while (paths[i])
 	{
 		tmp = ft_strjoin(paths[i++], "/");

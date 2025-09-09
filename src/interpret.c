@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:07:06 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 10:21:07 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:16:45 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,21 @@ void	interpret(t_data *data, char *s)
 	else
 	{
 		add_history(s);
-		init(data, s);
-		execute(data->cmds, data);
+		if (init(data, s) == 0)
+			execute(data->cmds, data);
 	}
 }
 
-void	init(t_data *data, char *s)
+int		init(t_data *data, char *s)
 {
 	data->tokens = tokenize(data, s);
 	if (data->tokens == NULL)
-		return ;
+		return (1);
 	data->cmds = create_cmds(data);
+	if (data->cmds == NULL)
+		return (1);
 	data->n_bins = count_bins(data);
-	create_pipes(data);
+	if (create_pipes(data))
+		return (1);
+	return (0);
 }

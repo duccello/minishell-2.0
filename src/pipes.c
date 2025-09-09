@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 13:23:59 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/08/29 12:34:05 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:18:01 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,21 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	allocate_pipes(t_data *data);
-static void	initiate_pipes(t_data *data);
+static int	allocate_pipes(t_data *data);
+static int	initiate_pipes(t_data *data);
 static void	connect_pipes(t_data *data);
 
-void	create_pipes(t_data *data)
+int		create_pipes(t_data *data)
 {
-	allocate_pipes(data);
-	initiate_pipes(data);
+	if (allocate_pipes(data) == 1)
+		return (1);
+	if (initiate_pipes(data) == 1)
+		return (1);
 	connect_pipes(data);
+	return (0);
 }
 
-static void	allocate_pipes(t_data *data)
+static int	allocate_pipes(t_data *data)
 {
 	if (data->n_cmds > 1)
 	{
@@ -35,14 +38,15 @@ static void	allocate_pipes(t_data *data)
 		if (!data->pipfd)
 		{
 			perror("malloc");
-			return ;
+			return (1);
 		}
 	}
 	else
 		data->pipfd = NULL;
+	return (0);
 }
 
-static void	initiate_pipes(t_data *data)
+static int	initiate_pipes(t_data *data)
 {
 	size_t i;
 
@@ -54,10 +58,11 @@ static void	initiate_pipes(t_data *data)
 			if (pipe(data->pipfd[i++]) == -1)
 			{
 				perror("pipe");
-				return ;
+				return (1);
 			}
 		}
 	}
+	return (0);
 }
 
 static void	connect_pipes(t_data *data)

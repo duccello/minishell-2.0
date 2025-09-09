@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 12:22:19 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/08/29 15:50:03 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:17:16 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "data.h"
 
-void	create_pipes(t_data *data);
+int	create_pipes(t_data *data);
 
 #endif

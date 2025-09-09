@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:53:24 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 14:40:46 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 15:58:55 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_cmd	*create_cmd(t_tok **tokens, t_data *data, size_t *i, size_t *j)
 	cmd->out_file = NULL;
 	cmd->append_file = NULL;
 	cmd->delimiter = NULL;
-	cmd->path = create_path(cmd);
+	cmd->path = NULL;
 	cmd->envp = create_array(data->envp);
 	populate_cmd(cmd, tokens, j);
 	set_fds(cmd);

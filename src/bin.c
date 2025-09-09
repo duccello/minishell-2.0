@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 15:32:36 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/04 13:18:39 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:02:19 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	run_child_process(t_cmd *c)
 		dup2(c->out_fd, STDOUT_FILENO);
 		close(c->out_fd);
 	}
+	c->path = create_path(c);
 	execve(c->path, c->argv, c->envp);
 	perror("execve");
 	free(c->path);
