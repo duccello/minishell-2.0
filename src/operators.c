@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd_and_operators.c                                 :+:      :+:    :+:   */
+/*   operators.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:37:56 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/08 18:21:23 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 11:40:59 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fd_and_operators.h"
+#include "operators.h"
 #include "ft_fprintf.h"
 #include "libft.h"
 #include "token.h"
@@ -33,61 +33,4 @@ void	check_operators(t_tok *token)
 		token->pipe = true;
 	else
 		token->string = true;
-}
-
-int	check_files(t_tok **tokens, int i)
-{
-	if (tokens[i - 1]->input_operator == true)
-	{
-		if (tokens[i]->string == false)
-		{
-			ft_fprintf(STDERR_FILENO, "syntax error\n");
-			return (1);
-		}
-		else
-		{
-			tokens[i]->string = false;
-			tokens[i]->input_file = true;
-		}
-	}
-	else if (tokens[i - 1]->output_operator == true)
-	{
-		if (tokens[i]->string == false)
-		{
-			ft_fprintf(STDERR_FILENO, "syntax error\n");
-			return (1);
-		}
-		else
-		{
-			tokens[i]->string = false;
-			tokens[i]->output_file = true;
-		}
-	}
-	else if (tokens[i - 1]->heredoc_operator == true)
-	{
-		if (tokens[i]->string == false)
-		{
-			ft_fprintf(STDERR_FILENO, "syntax error\n");
-			return (1);
-		}
-		else
-		{
-			tokens[i]->string = false;
-			tokens[i]->heredoc_delimiter = true;
-		}
-	}
-	else if (tokens[i - 1]->append_operator == true)
-	{
-		if (tokens[i]->string == false)
-		{
-			ft_fprintf(STDERR_FILENO, "syntax error\n");
-			return (1);
-		}
-		else
-		{
-			tokens[i]->string = false;
-			tokens[i]->append_file = true;
-		}
-	}
-	return (0);
 }

@@ -6,14 +6,15 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:43:50 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 11:09:42 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/09 11:34:02 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "clean.h"
 #include "data.h"
 #include "expand.h"
-#include "fd_and_operators.h"
+#include "operators.h"
+#include "files.h"
 #include "libft.h"
 #include "token.h"
 #include "ft_fprintf.h"
