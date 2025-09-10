@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 12:39:54 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/10 13:45:39 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:56:07 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	pwd(t_cmd *cmd)
 {
 	char	*s;
 
-	s = getcwd(NULL, 0);
-	ft_fprintf(cmd->out_fd, "%s\n", s);
+	s = getenv("PWD");
+	write(cmd->out_fd, s, ft_strlen(s));
+	write(cmd->out_fd, "\n", 1);
 }
