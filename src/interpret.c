@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 19:00:17 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/10 11:00:48 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 12:17:15 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,3 @@ void	destroy(t_data *data)
 	if (data->pipfd != NULL)
 		free(data->pipfd);
 }
-

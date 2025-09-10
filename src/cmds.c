@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:53:24 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/10 10:59:03 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 12:15:58 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ t_cmd	*create_cmd(t_tok **tokens, t_data *data, size_t *i, size_t *j)
 	cmd->path = NULL;
 	cmd->envp = create_array(data->envp);
 	populate_cmd(cmd, tokens, j);
-	set_fds(cmd);
+	if (set_fds(cmd) == 1)
+		return (NULL);
 	return (cmd);
 }
 

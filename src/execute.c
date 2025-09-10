@@ -6,7 +6,7 @@
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:02:00 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/10 10:11:16 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 12:07:53 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "cmds.h"
 #include "data.h"
 #include "execute.h"
+#include "files.h"
 #include "ft_fprintf.h"
 #include <signal.h>
 #include <stdint.h>
@@ -48,6 +49,7 @@ void	execute(t_cmd **cmds, t_data *data)
 		i++;
 	}
 	pids_and_ret(pid, j, data);
+	close_fds(cmds);
 }
 
 void	allocate_pids(t_data *data, int **pid)

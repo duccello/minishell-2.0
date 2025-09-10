@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:34:32 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 16:03:31 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 11:31:38 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include "libft.h"
 #include "list.h"
 #include "clean.h"
+#include "ft_fprintf.h"
+#include <errno.h>
+#include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -52,7 +55,7 @@ static char	*join_path(char *cmd, char **paths, t_cmd *c)
 			return (full);
 		free(full);
 	}
-	perror("access");
+	ft_fprintf(STDERR_FILENO, "%s: command not found\n", cmd);
 	return (NULL);
 }
 

@@ -6,23 +6,26 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 13:46:10 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/10 10:58:02 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 12:14:28 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmds.h"
 #include "data.h"
 #include "get_next_line.h"
+#include "ft_fprintf.h"
 #include "libft.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <errno.h>
 
 void	piping_heredoc(t_cmd *c);
 
-void	set_fds(t_cmd *c)
+int		set_fds(t_cmd *c)
 {
 	if (c->in_file != NULL)
 		c->in_fd = open(c->in_file, O_RDONLY);
@@ -32,9 +35,10 @@ void	set_fds(t_cmd *c)
 		c->in_fd = STDIN_FILENO;
 	if (c->in_fd == -1)
 	{
-		perror("open");
+		ft_fprintf(STDERR_FILENO, "%s: %s\n", c->in_file, strerror(errno));
 		c->data->ret_val = 1;
 		c->data->error = true;
+		return (1);
 	}
 	if (c->out_file != NULL)
 		c->out_fd = open(c->out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -44,9 +48,25 @@ void	set_fds(t_cmd *c)
 		c->out_fd = STDOUT_FILENO;
 	if (c->out_fd == -1)
 	{
-		perror("open");
+		ft_fprintf(STDERR_FILENO, "%s: %s\n", c->out_file, strerror(errno));
 		c->data->ret_val = 1;
 		c->data->error = true;
+	}
+	return (0);
+}
+
+void	close_fds(t_cmd **cmds)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < cmds[0]->data->n_cmds)
+	{
+		if (cmds[i]->in_fd > 2)
+			close(cmds[i]->in_fd);
+		if (cmds[i]->out_fd > 2)
+			close(cmds[i]->out_fd);
+		i++;
 	}
 }
 
