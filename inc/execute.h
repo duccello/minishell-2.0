@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#ifndef EXECUTE_H
+# define EXECUTE_H
 
 # include "cmds.h"
 # include "data.h"
