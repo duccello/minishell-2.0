@@ -6,7 +6,7 @@
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:02:00 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/09 20:17:04 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 10:11:16 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	execute(t_cmd **cmds, t_data *data)
 
 void	allocate_pids(t_data *data, int **pid)
 {
-	if (data->n_cmds > 0)
+	if (data->n_bins > 0)
 		*pid = malloc(sizeof(int) * data->n_bins);
 	else
 		*pid = NULL;
@@ -85,6 +85,4 @@ void	pids_and_ret(int *pid, int j, t_data *data)
 			data->ret_val = get_return_val(status);
 		free(pid);
 	}
-	else
-		status = 0;
 }

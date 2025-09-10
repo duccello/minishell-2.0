@@ -6,7 +6,7 @@
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 17:09:47 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/09 17:56:50 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 10:49:03 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,31 @@ void	free_array(char **c)
 	c = NULL;
 }
 
-void	free_cmd(t_cmd *c)
+void	free_cmds(t_cmd **c, size_t num)
 {
-	if (c->path != NULL)
-		free(c->path);
-	if (c->argv != NULL)
-		free_array(c->argv);
-	if (c->envp != NULL)
-		free_array(c->envp);
-	if (c->in_file != NULL)
-		free(c->in_file);
-	if (c->out_file != NULL)
-		free(c->out_file);
-	if (c->append_file != NULL)
-		free(c->append_file);
-	if (c->delimiter != NULL)
-		free(c->delimiter);
+	size_t	i;
+
+	if (c == NULL)
+		return ;
+	i = 0;
+	while (i < num)
+	{
+		if (c[i]->path != NULL)
+			free(c[i]->path);
+		if (c[i]->argv != NULL)
+			free_array(c[i]->argv);
+		if (c[i]->envp != NULL)
+			free_array(c[i]->envp);
+		if (c[i]->in_file != NULL)
+			free(c[i]->in_file);
+		if (c[i]->out_file != NULL)
+			free(c[i]->out_file);
+		if (c[i]->append_file != NULL)
+			free(c[i]->append_file);
+		if (c[i]->delimiter != NULL)
+			free(c[i]->delimiter);
+		free(c[i++]);
+	}
 	free(c);
 	c = NULL;
 }
@@ -85,27 +94,16 @@ void	free_tokens(t_tok **tokens, t_data *data)
 			free(tokens[i++]);
 		}
 		free(tokens);
+		tokens = NULL;
 	}
 }
 
 void	free_data(t_data *data)
 {
-	size_t	i;
-
 	if (data == NULL)
 		return ;
 	if (data->cmds != NULL)
-	{
-		i = 0;
-		while (i < data->n_cmds)
-		{
-			if (data->cmds[i] != NULL)
-				free_cmd(data->cmds[i]);
-			i++;
-		}
-		free(data->cmds);
-		data->cmds = NULL;
-	}
+		free_cmds(data->cmds, data->n_cmds);
 	if (data->tokens != NULL)
 		free_tokens(data->tokens, data);
 	if (data->envp != NULL)

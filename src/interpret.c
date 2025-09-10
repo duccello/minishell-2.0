@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 19:00:17 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 20:15:20 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 11:00:48 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 void	interpret(t_data *data, char *s)
 {
@@ -56,20 +57,18 @@ int		init(t_data *data, char *s)
 	if (data->cmds == NULL)
 		return (1);
 	data->n_bins = count_bins(data);
-	if (create_pipes(data))
+	if (create_pipes(data) == 1)
 		return (1);
 	return (0);
 }
 
 void	destroy(t_data *data)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < data->n_cmds)
-		free_cmd(data->cmds[i++]);
-	free(data->cmds);
-	free_tokens(data->tokens, data);
-	free(data->pipfd);
+	if (data->cmds != NULL)
+		free_cmds(data->cmds, data->n_cmds);
+	if (data->tokens != NULL)
+		free_tokens(data->tokens, data);
+	if (data->pipfd != NULL)
+		free(data->pipfd);
 }
 

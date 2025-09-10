@@ -6,11 +6,12 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:53:24 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 19:36:07 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 10:59:03 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmds.h"
+#include "clean.h"
 #include "data.h"
 #include "files.h"
 #include "libft.h"
@@ -34,7 +35,15 @@ t_cmd	**create_cmds(t_data *data)
 		return (NULL);
 	cmd_i = 0;
 	while (cmd_i < data->n_cmds)
-		cmds[cmd_i++] = create_cmd(data->tokens, data, &cre_i, &pop_i);
+	{
+		cmds[cmd_i] = create_cmd(data->tokens, data, &cre_i, &pop_i);
+		if (cmds[cmd_i] == NULL)
+		{
+			free_cmds(cmds, cmd_i);
+			return (NULL);
+		}
+		cmd_i++;
+	}	
 	return (cmds);
 }
 
