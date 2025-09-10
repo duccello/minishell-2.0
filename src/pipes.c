@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 13:23:59 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 16:18:01 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:23:45 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,28 @@ static int	initiate_pipes(t_data *data)
 static void	connect_pipes(t_data *data)
 {
 	size_t i;
+	int		temp_fd;
 
 	i = 0;
+	temp_fd = 0;
 	while (i < data->n_cmds)
 	{
 		if (i == 0)
 			;
 		else
+		{
+			temp_fd = data->cmds[i]->in_fd;
 			data->cmds[i]->in_fd = data->pipfd[i - 1][READ];
+			close(temp_fd);
+		}
 		if (i == data->n_cmds - 1)
 			;
 		else
+		{
+			temp_fd = data->cmds[i]->out_fd;
 			data->cmds[i]->out_fd = data->pipfd[i][WRITE];
+			close(temp_fd);
+		}
 		i++;
 	}
 }

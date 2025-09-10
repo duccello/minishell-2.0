@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 17:49:22 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/03 15:00:47 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:44:50 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	handle_abs_path(char *s)
 
 static int	handle_rel_path(char *s)
 {
+	char	*tmp;
 	char	*cwd;
 	char	*nd;
 
@@ -62,7 +63,9 @@ static int	handle_rel_path(char *s)
 		perror("getcwd");
 		return (1);
 	}
+	tmp = cwd;
 	cwd = ft_strjoin(cwd, "/");
+	free(tmp);
 	nd = ft_strjoin(cwd, s);
 	if (chdir(nd) == -1)
 	{
@@ -80,10 +83,13 @@ static void	update_wd(t_node *list)
 {
 	t_node	*node;
 	char	*wd;
+	char	*tmp;
 
 	wd = ft_strdup("PWD=");
+	tmp = wd;
 	delete_node(&list, wd, ft_strlen(wd));
 	wd = ft_strjoin(wd, getcwd(NULL, 0));
+	free(tmp);
 	node = create_node(wd);
 	append_node(&list, node);
 }

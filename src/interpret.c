@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 19:00:17 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/10 12:17:15 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 12:58:48 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ void	interpret(t_data *data, char *s)
 
 int		init(t_data *data, char *s)
 {
-	data->error = false;
+	data->tokens = NULL;
+	data->cmds = NULL;
+	data->pipfd = NULL;
 	data->tokens = tokenize(data, s);
 	if (data->tokens == NULL)
 		return (1);

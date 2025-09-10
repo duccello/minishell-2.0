@@ -6,7 +6,7 @@
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:02:00 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/10 12:07:53 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:39:47 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@ void	execute(t_cmd **cmds, t_data *data)
 			handle_built_in(data, cmds[i]);
 		else
 			pid[j++] = exec_binary(cmds[i]);
-		if (i != 0)
-			close(data->pipfd[i - 1][READ]);
-		if (i < data->n_cmds - 1)
-			close(data->pipfd[i][WRITE]);
 		i++;
 	}
 	pids_and_ret(pid, j, data);
@@ -83,8 +79,7 @@ void	pids_and_ret(int *pid, int j, t_data *data)
 		while (i < j)
 			waitpid(pid[i++], &status, 0);
 		g_flag = 0;
-		if (data->error == false)
-			data->ret_val = get_return_val(status);
+		data->ret_val = get_return_val(status);
 		free(pid);
 	}
 }

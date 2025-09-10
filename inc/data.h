@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:29:38 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 20:16:45 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 12:55:56 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_data
 	size_t				n_tokens;
 	size_t				n_bins;
 	int					ret_val;
-	bool				error;
 }						t_data;
 
 t_data					*create_data(char **envp);

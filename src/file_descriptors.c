@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 13:46:10 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/10 12:14:28 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/10 13:39:05 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int		set_fds(t_cmd *c)
 	{
 		ft_fprintf(STDERR_FILENO, "%s: %s\n", c->in_file, strerror(errno));
 		c->data->ret_val = 1;
-		c->data->error = true;
 		return (1);
 	}
 	if (c->out_file != NULL)
@@ -50,7 +49,6 @@ int		set_fds(t_cmd *c)
 	{
 		ft_fprintf(STDERR_FILENO, "%s: %s\n", c->out_file, strerror(errno));
 		c->data->ret_val = 1;
-		c->data->error = true;
 	}
 	return (0);
 }
