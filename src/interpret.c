@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "built_in.h"
-#include "cmds.h"
 #include "clean.h"
+#include "cmds.h"
 #include "data.h"
 #include "execute.h"
 #include "interpret.h"
@@ -22,8 +22,8 @@
 #include "utils.h"
 #include <readline/history.h>
 #include <readline/readline.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void	interpret(t_data *data, char *s)
 {
@@ -47,7 +47,7 @@ void	interpret(t_data *data, char *s)
 	}
 }
 
-int		init(t_data *data, char *s)
+int	init(t_data *data, char *s)
 {
 	data->tokens = NULL;
 	data->cmds = NULL;

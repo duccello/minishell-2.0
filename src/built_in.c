@@ -50,7 +50,7 @@ void	handle_built_in(t_data *data, t_cmd *cmd)
 		data->ret_val = cd(cmd);
 	if (ft_strncmp(cmd->argv[0], data->built_ins[PWD], ft_strlen(cmd->argv[0])
 			+ 1) == 0)
-		pwd();
+		pwd(cmd);
 	if (ft_strncmp(cmd->argv[0], data->built_ins[EXPORT],
 			ft_strlen(cmd->argv[0]) + 1) == 0)
 		ft_export(cmd);

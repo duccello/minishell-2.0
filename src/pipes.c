@@ -20,7 +20,7 @@ static int	allocate_pipes(t_data *data);
 static int	initiate_pipes(t_data *data);
 static void	connect_pipes(t_data *data);
 
-int		create_pipes(t_data *data)
+int	create_pipes(t_data *data)
 {
 	if (allocate_pipes(data) == 1)
 		return (1);
@@ -48,7 +48,7 @@ static int	allocate_pipes(t_data *data)
 
 static int	initiate_pipes(t_data *data)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (data->pipfd != NULL)
@@ -67,29 +67,19 @@ static int	initiate_pipes(t_data *data)
 
 static void	connect_pipes(t_data *data)
 {
-	size_t i;
-	int		temp_fd;
+	size_t	i;
 
 	i = 0;
-	temp_fd = 0;
 	while (i < data->n_cmds)
 	{
 		if (i == 0)
 			;
 		else
-		{
-			temp_fd = data->cmds[i]->in_fd;
 			data->cmds[i]->in_fd = data->pipfd[i - 1][READ];
-			close(temp_fd);
-		}
 		if (i == data->n_cmds - 1)
 			;
 		else
-		{
-			temp_fd = data->cmds[i]->out_fd;
 			data->cmds[i]->out_fd = data->pipfd[i][WRITE];
-			close(temp_fd);
-		}
 		i++;
 	}
 }

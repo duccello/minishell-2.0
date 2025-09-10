@@ -42,6 +42,10 @@ void	execute(t_cmd **cmds, t_data *data)
 			handle_built_in(data, cmds[i]);
 		else
 			pid[j++] = exec_binary(cmds[i]);
+		if (i != 0)
+			close(data->pipfd[i - 1][READ]);
+		if (i < data->n_cmds - 1)
+			close(data->pipfd[i][WRITE]);
 		i++;
 	}
 	pids_and_ret(pid, j, data);

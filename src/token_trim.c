@@ -16,15 +16,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int	get_len(t_tok *token, int len);
+static size_t	get_len(t_tok *token, size_t len);
+static char		*copy_unquoted(t_tok *token, size_t len);
+static char		*copy_trimmed(t_tok *token, size_t len);
 
 void	trim_quotes(t_tok *token)
 {
 	char	*s;
-	int		len;
-	int		i;
+	size_t	len;
 
-	len = (int)ft_strlen(token->s);
+	len = (size_t)ft_strlen(token->s);
 	if ((token->s[0] == '"' && token->s[len - 1] == '"') || (token->s[0] == '\''
 			&& token->s[len - 1] == '\''))
 	{
@@ -33,38 +34,61 @@ void	trim_quotes(t_tok *token)
 		if (token->s[0] == '"' && token->s[len - 1] == '"')
 			token->dquote = true;
 		len -= 2;
-		s = malloc(len + 1);
+		s = copy_unquoted(token, len);
 		if (s == NULL)
-			return ;
-		i = 0;
-		while (i < len)
 		{
-			s[i] = token->s[i + 1];
-			i++;
+			perror("malloc");
+			return ;
 		}
-		s[i] = '\0';
 		free(token->s);
-		token->s = NULL;
-		token->s = ft_strdup(s);
-		free(s);
+		token->s = s;
 	}
+}
+
+static char	*copy_unquoted(t_tok *token, size_t len)
+{
+	size_t	i;
+	char	*s;
+
+	s = malloc(len + 1);
+	if (s == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		s[i] = token->s[i + 1];
+		i++;
+	}
+	s[i] = '\0';
+	return (s);
 }
 
 void	trim_spaces(t_tok *token)
 {
 	char	*s;
-	int		i;
-	int		j;
-	int		len;
+	size_t	len;
 
-	len = get_len(token, (int)ft_strlen(token->s));
-	s = malloc(len + 1);
+	len = get_len(token, (size_t)ft_strlen(token->s));
+	s = copy_trimmed(token, len);
 	if (s == NULL)
 	{
 		perror("malloc");
 		return ;
 	}
+	free(token->s);
+	token->s = s;
+}
+
+static char	*copy_trimmed(t_tok *token, size_t len)
+{
+	char	*s;
+	size_t	i;
+	size_t	j;
+
 	i = 0;
+	s = malloc(len + 1);
+	if (s == NULL)
+		return (NULL);
 	while (token->s[i] == ' ')
 		i++;
 	j = 0;
@@ -74,16 +98,13 @@ void	trim_spaces(t_tok *token)
 		j++;
 	}
 	s[j] = '\0';
-	free(token->s);
-	token->s = NULL;
-	token->s = ft_strdup(s);
-	free(s);
+	return (s);
 }
 
-static int	get_len(t_tok *token, int len)
+static size_t	get_len(t_tok *token, size_t len)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (token->s[i] == ' ' && i < len)

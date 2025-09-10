@@ -12,20 +12,20 @@
 
 #include "cmds.h"
 #include "data.h"
-#include "get_next_line.h"
 #include "ft_fprintf.h"
+#include "get_next_line.h"
 #include "libft.h"
+#include <errno.h>
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <errno.h>
+#include <unistd.h>
 
 void	piping_heredoc(t_cmd *c);
 
-int		set_fds(t_cmd *c)
+int	set_fds(t_cmd *c)
 {
 	if (c->in_file != NULL)
 		c->in_fd = open(c->in_file, O_RDONLY);

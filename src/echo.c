@@ -14,33 +14,32 @@
 #include "ft_fprintf.h"
 #include "libft.h"
 #include <unistd.h>
+#define WITH_FLAG 2
+#define WITHOUT_FLAG 1
+
+static void	print_echo(t_cmd *cmd, int i);
 
 void	echo(t_cmd *cmd)
 {
-	int	i;
-
 	if (cmd->argv[1] != NULL && ft_strncmp(cmd->argv[1], "-n",
-				ft_strlen(cmd->argv[1]) + 1) == 0)
+			ft_strlen(cmd->argv[1]) + 1) == 0)
 	{
-		i = 2;
-		while (cmd->argv[i] != NULL)
-		{
-			ft_fprintf(cmd->out_fd, "%s", cmd->argv[i]);
-			if (cmd->argv[i + 1] != NULL)
-				ft_fprintf(cmd->out_fd, " ");
-			i++;
-		}
+		print_echo(cmd, WITH_FLAG);
 	}
 	else
 	{
-		i = 1;
-		while (cmd->argv[i] != NULL)
-		{	
-			ft_fprintf(cmd->out_fd, "%s", cmd->argv[i]);
-			if (cmd->argv[i + 1] != NULL)
-				ft_fprintf(cmd->out_fd, " ");
-			i++;
-		}
+		print_echo(cmd, WITHOUT_FLAG);
 		ft_fprintf(cmd->out_fd, "\n");
+	}
+}
+
+static void	print_echo(t_cmd *cmd, int i)
+{
+	while (cmd->argv[i] != NULL)
+	{
+		ft_fprintf(cmd->out_fd, "%s", cmd->argv[i]);
+		if (cmd->argv[i + 1] != NULL)
+			ft_fprintf(cmd->out_fd, " ");
+		i++;
 	}
 }

@@ -25,7 +25,7 @@
 
 int	exec_binary(t_cmd *c)
 {
-	int		pid;
+	int	pid;
 
 	pid = fork();
 	if (pid == 0)
@@ -52,4 +52,3 @@ void	run_child_process(t_cmd *c)
 	if (access(c->path, X_OK) == 0)
 		execve(c->path, c->argv, c->envp);
 }
-

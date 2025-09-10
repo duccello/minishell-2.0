@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cmds.h"
 #include "clean.h"
+#include "cmds.h"
 #include "data.h"
 #include "files.h"
 #include "libft.h"
@@ -43,7 +43,7 @@ t_cmd	**create_cmds(t_data *data)
 			return (NULL);
 		}
 		cmd_i++;
-	}	
+	}
 	return (cmds);
 }
 
