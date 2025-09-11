@@ -6,7 +6,7 @@
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 17:09:47 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/10 10:49:03 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/11 11:15:03 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,14 @@ void	free_tokens(t_tok **tokens, t_data *data)
 	{
 		while (i < data->n_tokens)
 		{
-			free(tokens[i]->s);
-			tokens[i]->s = NULL;
-			free(tokens[i++]);
+			if(tokens[i]->s != NULL)
+			{
+				free(tokens[i]->s);
+				tokens[i]->s = NULL;
+			}
+			if (tokens[i] != NULL)
+				free(tokens[i]);
+			i++;
 		}
 		free(tokens);
 		tokens = NULL;

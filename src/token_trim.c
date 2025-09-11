@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:10:53 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/11 10:15:28 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/11 11:09:54 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ static size_t	get_len(t_tok *token, size_t len)
 
 	new_len = len;
 	i = 0;
-	while (token->s[i] == ' ' && i < len)
+	while (token->s[i] == ' ')
 	{
 		i++;
 		new_len--;
 	}
 	j = 0;
-	while (token->s[len - 1] == ' ' && j < len)
+	while (token->s[len - 1] == ' ')
 	{
 		j++;
 		new_len--;
