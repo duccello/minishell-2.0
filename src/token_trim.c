@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:10:53 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 17:39:16 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/11 10:15:28 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,67 @@
 static size_t	get_len(t_tok *token, size_t len);
 static char		*copy_unquoted(t_tok *token, size_t len);
 static char		*copy_trimmed(t_tok *token, size_t len);
+
+void	trim_spaces(t_tok *token)
+{
+	char	*s;
+	size_t	len;
+
+	len = get_len(token, (size_t)ft_strlen(token->s));
+	s = copy_trimmed(token, len);
+	if (s == NULL)
+	{
+		perror("malloc");
+		return ;
+	}
+	free(token->s);
+	token->s = s;
+}
+
+static size_t	get_len(t_tok *token, size_t len)
+{
+	size_t	i;
+	size_t	j;
+	size_t	new_len;
+
+	new_len = len;
+	i = 0;
+	while (token->s[i] == ' ' && i < len)
+	{
+		i++;
+		new_len--;
+	}
+	j = 0;
+	while (token->s[len - 1] == ' ' && j < len)
+	{
+		j++;
+		new_len--;
+		len--;
+	}
+	return (new_len);
+}
+
+static char	*copy_trimmed(t_tok *token, size_t len)
+{
+	char	*s;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	s = malloc(len + 1);
+	if (s == NULL)
+		return (NULL);
+	while (token->s[i] == ' ')
+		i++;
+	j = 0;
+	while (j < len)
+	{
+		s[j] = token->s[i + j];
+		j++;
+	}
+	s[j] = '\0';
+	return (s);
+}
 
 void	trim_quotes(t_tok *token)
 {
@@ -63,57 +124,3 @@ static char	*copy_unquoted(t_tok *token, size_t len)
 	return (s);
 }
 
-void	trim_spaces(t_tok *token)
-{
-	char	*s;
-	size_t	len;
-
-	len = get_len(token, (size_t)ft_strlen(token->s));
-	s = copy_trimmed(token, len);
-	if (s == NULL)
-	{
-		perror("malloc");
-		return ;
-	}
-	free(token->s);
-	token->s = s;
-}
-
-static char	*copy_trimmed(t_tok *token, size_t len)
-{
-	char	*s;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	s = malloc(len + 1);
-	if (s == NULL)
-		return (NULL);
-	while (token->s[i] == ' ')
-		i++;
-	j = 0;
-	while (j < len)
-	{
-		s[j] = token->s[i + j];
-		j++;
-	}
-	s[j] = '\0';
-	return (s);
-}
-
-static size_t	get_len(t_tok *token, size_t len)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (token->s[i] == ' ' && i < len)
-		i++;
-	j = 0;
-	while (token->s[len - 1] == ' ' && j < len)
-	{
-		j++;
-		len--;
-	}
-	return (len);
-}
