@@ -24,6 +24,7 @@ static char		*handle_expansion(t_tok *token, size_t i);
 static size_t	find_len(char *str, char c);
 char			*replace_key_with_value(char *token_string, char *value,
 					size_t key_len);
+static char		*skip_expansion(char *token_string, size_t key_len);
 
 void	expand(t_tok *token)
 {
@@ -47,7 +48,8 @@ void	expand(t_tok *token)
 			token->s = handle_expansion(token, i);
 			i = 0;
 		}
-		i++;
+		else
+			i++;
 	}
 }
 
@@ -68,7 +70,7 @@ static char	*handle_expansion(t_tok *token, size_t i)
 	if (value != NULL)
 		new_string = replace_key_with_value(token->s, value, key_len + 1);
 	else
-		new_string = replace_key_with_value(token->s, "", key_len + 1);
+		new_string = skip_expansion(token->s, key_len + 1);
 	free(key);
 	return (new_string);
 }
@@ -78,10 +80,11 @@ char	*replace_key_with_value(char *token_string, char *value, size_t key_len)
 	char	*new_string;
 	size_t	i;
 	size_t	j;
-	size_t	y;
+	size_t	k;
+	int		len;
 
-	new_string = malloc((ft_strlen(token_string) - key_len + ft_strlen(value)
-				+ 1) * sizeof(char));
+	len = (ft_strlen(token_string) - key_len + ft_strlen(value) + 1);
+	new_string = malloc(len * sizeof(char));
 	if (new_string == NULL)
 		return (NULL);
 	i = 0;
@@ -91,9 +94,32 @@ char	*replace_key_with_value(char *token_string, char *value, size_t key_len)
 		i++;
 	}
 	j = i + key_len;
-	y = 0;
-	while (value[y] != '\0')
-		new_string[i++] = value[y++];
+	k = 0;
+	while (value[k] != '\0')
+		new_string[i++] = value[k++];
+	while (token_string[j] != '\0')
+		new_string[i++] = token_string[j++];
+	new_string[i] = '\0';
+	free(token_string);
+	return (new_string);
+}
+
+static char	*skip_expansion(char *token_string, size_t key_len)
+{
+	char	*new_string;
+	size_t	i;
+	size_t	j;
+
+	new_string = malloc((ft_strlen(token_string) - key_len + 1) * sizeof(char));
+	if (new_string == NULL)
+		return (NULL);
+	i = 0;
+	while (token_string[i] != '\0' && token_string[i] != '$')
+	{
+		new_string[i] = token_string[i];
+		i++;
+	}
+	j = i + key_len;
 	while (token_string[j] != '\0')
 		new_string[i++] = token_string[j++];
 	new_string[i] = '\0';
