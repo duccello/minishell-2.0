@@ -56,8 +56,10 @@ char	*expand_var(t_tok *token)
 		{
 			free(token->s);
 			s = ft_strdup(&(curr->s[len_list + 1]));
+			return (s);
 		}
 		curr = curr->next;
 	}
+	free(token->s);
 	return (s);
 }
