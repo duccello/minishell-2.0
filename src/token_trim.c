@@ -123,4 +123,3 @@ static char	*copy_unquoted(t_tok *token, size_t len)
 	s[i] = '\0';
 	return (s);
 }
-

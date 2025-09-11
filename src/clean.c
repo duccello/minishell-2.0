@@ -89,7 +89,7 @@ void	free_tokens(t_tok **tokens, t_data *data)
 	{
 		while (i < data->n_tokens)
 		{
-			if(tokens[i]->s != NULL)
+			if (tokens[i]->s != NULL)
 			{
 				free(tokens[i]->s);
 				tokens[i]->s = NULL;

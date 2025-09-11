@@ -12,10 +12,9 @@
 
 #ifndef EXPAND_H
 # define EXPAND_H
+# include <stdio.h>
 
 typedef struct s_tok	t_tok;
 
 void					expand(t_tok *token);
-char					*expand_var(t_tok *token);
-
 #endif
