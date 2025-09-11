@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 13:30:23 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/11 11:38:25 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/11 18:34:02 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,8 @@ static char	*skip_expansion(char *token_string, size_t key_len)
 
 static size_t	find_len(char *str, char c)
 {
-	size_t i;
-	size_t len;
+	size_t	i;
+	size_t	len;
 
 	i = 0;
 	len = 0;
