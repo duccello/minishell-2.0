@@ -6,13 +6,15 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 11:06:34 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 11:19:20 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/15 14:54:35 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_fprintf.h"
 #include "token.h"
 #include <stdbool.h>
+#include <unistd.h>
 
 static int	find_new_token(char *s, bool *in_word, int *counter, char *c);
 static void	handle_operator(bool *in_word, int *counter, char *c);
@@ -39,6 +41,11 @@ int	count_tokens(char *s, char *tracker)
 			i += find_new_token(&s[i], &in_word, &counter, &tracker[i]);
 		toggle_quotes(s[i], &in_quote, &in_dquote);
 		i++;
+	}
+	if (in_quote == true || in_dquote == true)
+	{
+		ft_fprintf(STDERR_FILENO, "syntax error\n");
+		return (0);
 	}
 	return (counter);
 }

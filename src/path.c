@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:34:32 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/10 11:31:38 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/15 14:04:42 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,30 @@
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <unistd.h>
 
 static char	*path_start(t_node *envp);
 static char	**parse_path(t_node *envp);
 static char	*join_path(char *cmd, char **paths, t_cmd *c);
 
-char	*create_path(t_cmd *cmd)
+bool	create_path(t_cmd *cmd)
 {
 	char	*path;
 	char	**paths;
 
 	paths = parse_path(cmd->data->envp);
+	if (paths == NULL)
+		return (false);
 	path = join_path(cmd->argv[0], paths, cmd);
+	if (path == NULL)
+	{
+		free_array(paths);
+		return (false);
+	}
 	free_array(paths);
-	return (path);
+	cmd->path = path;
+	return (true);
 }
 
 static char	*join_path(char *cmd, char **paths, t_cmd *c)
@@ -43,7 +52,7 @@ static char	*join_path(char *cmd, char **paths, t_cmd *c)
 	int		i;
 
 	(void)c;
-	if (ft_strchr(cmd, '/'))
+	if (ft_strchr(cmd, '/') && access(cmd, X_OK) == 0)
 		return (ft_strdup(cmd));
 	i = 0;
 	while (paths[i])

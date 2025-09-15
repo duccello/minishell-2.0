@@ -6,12 +6,14 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:10:53 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/11 11:09:54 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/15 14:48:43 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "token.h"
+#include "ft_fprintf.h"
+#include <unistd.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>

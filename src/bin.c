@@ -6,20 +6,21 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 15:32:36 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/10 11:55:55 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/15 14:02:17 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bin.h"
-#include "clean.h"
 #include "data.h"
-#include "libft.h"
-#include "list.h"
-#include "signals.h"
+#include "clean.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include "signals.h"
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
+#include "ft_fprintf.h"
 
 #define CMD_NOT_FOUND 127
 
@@ -43,12 +44,6 @@ void	run_child_process(t_cmd *c)
 		dup2(c->in_fd, STDIN_FILENO);
 	if (c->out_fd != STDOUT_FILENO)
 		dup2(c->out_fd, STDOUT_FILENO);
-	c->path = create_path(c);
-	if (c->path == NULL)
-	{
-		c->data->ret_val = CMD_NOT_FOUND;
-		exit(c->data->ret_val);
-	}
 	if (access(c->path, X_OK) == 0)
 		execve(c->path, c->argv, c->envp);
 }

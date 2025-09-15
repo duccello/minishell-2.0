@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:55:25 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/09 10:27:52 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/15 14:03:51 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CMDS_H
 
 # include <stdio.h>
+# include <stdbool.h>
 
 typedef struct s_data	t_data;
 typedef struct s_tok	t_tok;
@@ -40,6 +41,6 @@ t_cmd					*create_cmd(t_tok **tokens, t_data *data, size_t *i,
 char					**create_argv(t_tok **tokens, t_data *data,
 							size_t *index);
 void					populate_cmd(t_cmd *cmd, t_tok **tokens, size_t *index);
-char					*create_path(t_cmd *cmd);
+bool					create_path(t_cmd *cmd);
 
 #endif

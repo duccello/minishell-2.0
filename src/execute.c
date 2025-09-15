@@ -6,7 +6,7 @@
 /*   By: duccello <duccello@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:02:00 by duccello          #+#    #+#             */
-/*   Updated: 2025/09/10 13:39:47 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/15 14:16:31 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "built_in.h"
 #include "cmds.h"
 #include "data.h"
+#include "libft.h"
 #include "execute.h"
 #include "files.h"
 #include "ft_fprintf.h"
@@ -40,8 +41,10 @@ void	execute(t_cmd **cmds, t_data *data)
 			;
 		else if (cmd_is_built_in(cmds[i]->argv[0], data->built_ins) == true)
 			handle_built_in(data, cmds[i]);
-		else
+		else if (create_path(cmds[i]) == true)
 			pid[j++] = exec_binary(cmds[i]);
+		else if (i == data->n_cmds - 1)
+			data->ret_val = 127;
 		if (i != 0)
 			close(data->pipfd[i - 1][READ]);
 		if (i < data->n_cmds - 1)
@@ -55,7 +58,7 @@ void	execute(t_cmd **cmds, t_data *data)
 void	allocate_pids(t_data *data, int **pid)
 {
 	if (data->n_bins > 0)
-		*pid = malloc(sizeof(int) * data->n_bins);
+		*pid = ft_calloc(data->n_bins, sizeof(int));
 	else
 		*pid = NULL;
 }
@@ -83,7 +86,8 @@ void	pids_and_ret(int *pid, int j, t_data *data)
 		while (i < j)
 			waitpid(pid[i++], &status, 0);
 		g_flag = 0;
-		data->ret_val = get_return_val(status);
+		if (data->ret_val != 127)
+			data->ret_val = get_return_val(status);
 		free(pid);
 	}
 }
