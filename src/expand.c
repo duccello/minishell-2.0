@@ -19,12 +19,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#define RET_EX 2
 
-static char		*handle_expansion(t_tok *token, size_t i);
-static size_t	find_len(char *str, char c);
-char			*replace_key_with_value(char *token_string, char *value,
-					size_t key_len);
-static char		*skip_expansion(char *token_string, size_t key_len);
+static char	*handle_expansion(t_tok *token, size_t i);
+char		*replace_key_with_value(char *token_string, char *value,
+				size_t key_len);
+static char	*skip_expansion(char *token_string, size_t key_len);
+static char	*handle_ret_val(t_tok *token, size_t i);
 
 void	expand(t_tok *token)
 {
@@ -37,12 +38,11 @@ void	expand(t_tok *token)
 	{
 		if (token->s[i] == '$' && token->s[i + 1] == '?')
 		{
-			free(token->s);
-			token->s = ft_itoa(token->data->ret_val);
-			i += 2;
+			token->s = handle_ret_val(token, i);
+			i = 0;
 		}
-		else if (token->s[i] == '$' && token->s[i + 1] != '\0'
-			&& ft_isspace(token->s[i + 1]) == false)
+		else if (token->s[i] == '$' && (ft_isalpha(token->s[i + 1]) == true
+				|| token->s[i + 1] == '_'))
 		{
 			i++;
 			token->s = handle_expansion(token, i);
@@ -51,6 +51,35 @@ void	expand(t_tok *token)
 		else
 			i++;
 	}
+}
+
+static char	*handle_ret_val(t_tok *token, size_t p)
+{
+	char	*new_string;
+	char	*value;
+	size_t	i;
+	size_t	j;
+
+	value = ft_itoa(token->data->ret_val);
+	new_string = malloc(ft_strlen(token->s) - RET_EX + ft_strlen(value) + 1);
+	i = 0;
+	while (i < p)
+	{
+		new_string[i] = token->s[i];
+		i++;
+	}
+	j = 0;
+	while (j < ft_strlen(value))
+		new_string[i++] = value[j++];
+	while (i < ft_strlen(token->s) - RET_EX + ft_strlen(value))
+	{
+		new_string[i] = token->s[i + RET_EX];
+		i++;
+	}
+	new_string[i] = '\0';
+	free(token->s);
+	free(value);
+	return (new_string);
 }
 
 static char	*handle_expansion(t_tok *token, size_t i)
@@ -125,23 +154,4 @@ static char	*skip_expansion(char *token_string, size_t key_len)
 	new_string[i] = '\0';
 	free(token_string);
 	return (new_string);
-}
-
-static size_t	find_len(char *str, char c)
-{
-	size_t i;
-	size_t len;
-
-	i = 0;
-	len = 0;
-	while (str[i] != '\0' && str[i] != c)
-		i++;
-	if (str[i] == c)
-		i++;
-	while (str[i] != '\0' && (ft_isalnum(str[i]) || str[i] == '_'))
-	{
-		i++;
-		len++;
-	}
-	return (len);
 }

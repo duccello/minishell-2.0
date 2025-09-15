@@ -94,3 +94,22 @@ int	find_equal(char *s)
 	}
 	return (-1);
 }
+
+size_t	find_len(char *str, char c)
+{
+	size_t i;
+	size_t len;
+
+	i = 0;
+	len = 0;
+	while (str[i] != '\0' && str[i] != c)
+		i++;
+	if (str[i] == c)
+		i++;
+	while (str[i] != '\0' && (ft_isalnum(str[i]) || str[i] == '_'))
+	{
+		i++;
+		len++;
+	}
+	return (len);
+}
