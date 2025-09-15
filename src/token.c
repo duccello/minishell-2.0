@@ -13,35 +13,29 @@
 #include "clean.h"
 #include "data.h"
 #include "expand.h"
-#include "operators.h"
 #include "files.h"
-#include "libft.h"
-#include "token.h"
 #include "ft_fprintf.h"
+#include "libft.h"
+#include "operators.h"
+#include "token.h"
 #include <readline/readline.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
+static char	*set_and_count(t_data *data, char *input);
+
 t_tok	**tokenize(t_data *data, char *input)
 {
 	t_tok	**tokens;
 	char	*tracker;
-	size_t	i;
 
 	if (input == NULL)
 		return (NULL);
-	tracker = ft_strdup(input);
-	i = 0;
-	while (tracker[i] != '\0')
-		tracker[i++] = '-';
-	data->n_tokens = count_tokens(input, tracker);
-	if (data->n_tokens == 0)
-	{
-		free(tracker);
+	tracker = set_and_count(data, input);
+	if (tracker == NULL)
 		return (NULL);
-	}
 	tokens = malloc(sizeof(t_tok *) * (data->n_tokens));
 	if (tokens == NULL)
 	{
@@ -56,6 +50,24 @@ t_tok	**tokenize(t_data *data, char *input)
 	}
 	free(tracker);
 	return (tokens);
+}
+
+static char	*set_and_count(t_data *data, char *input)
+{
+	char	*tracker;
+	size_t	i;
+
+	tracker = ft_strdup(input);
+	i = 0;
+	while (tracker[i] != '\0')
+		tracker[i++] = '-';
+	data->n_tokens = count_tokens(input, tracker);
+	if (data->n_tokens == 0)
+	{
+		free(tracker);
+		return (NULL);
+	}
+	return (tracker);
 }
 
 int	create_tokens(t_data *data, t_tok **tokens, char *tracker, char *input)
@@ -89,9 +101,9 @@ int	create_tokens(t_data *data, t_tok **tokens, char *tracker, char *input)
 
 t_tok	*populate_token(char *input, char *tracker, size_t *j)
 {
-	t_tok		*token;
-	size_t		start;
-	size_t		len;
+	t_tok	*token;
+	size_t	start;
+	size_t	len;
 
 	len = 0;
 	token = malloc(sizeof(t_tok));

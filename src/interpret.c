@@ -19,11 +19,12 @@
 #include "list.h"
 #include "pipes.h"
 #include "token.h"
-#include "utils.h"
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+static size_t	count_bins(t_data *data);
 
 void	interpret(t_data *data, char *s)
 {
@@ -72,4 +73,22 @@ void	destroy(t_data *data)
 		free_tokens(data->tokens, data);
 	if (data->pipfd != NULL)
 		free(data->pipfd);
+}
+
+static size_t	count_bins(t_data *data)
+{
+	size_t	i;
+	size_t	bins;
+
+	i = 0;
+	bins = 0;
+	while (i < data->n_cmds)
+	{
+		if (data->cmds[i]->argv[0] != NULL
+			&& cmd_is_built_in(data->cmds[i]->argv[0],
+				data->built_ins) == false)
+			bins++;
+		i++;
+	}
+	return (bins);
 }

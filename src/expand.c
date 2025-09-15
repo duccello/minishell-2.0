@@ -19,7 +19,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define RET_EX 2
 
 static char	*handle_expansion(t_tok *token, size_t i);
 char		*replace_key_with_value(char *token_string, char *value,
@@ -61,7 +60,7 @@ static char	*handle_ret_val(t_tok *token, size_t p)
 	size_t	j;
 
 	value = ft_itoa(token->data->ret_val);
-	new_string = malloc(ft_strlen(token->s) - RET_EX + ft_strlen(value) + 1);
+	new_string = malloc(ft_strlen(token->s) - 2 + ft_strlen(value) + 1);
 	i = 0;
 	while (i < p)
 	{
@@ -71,9 +70,9 @@ static char	*handle_ret_val(t_tok *token, size_t p)
 	j = 0;
 	while (j < ft_strlen(value))
 		new_string[i++] = value[j++];
-	while (i < ft_strlen(token->s) - RET_EX + ft_strlen(value))
+	while (i < ft_strlen(token->s) - 2 + ft_strlen(value))
 	{
-		new_string[i] = token->s[i + RET_EX];
+		new_string[i] = token->s[i + 1];
 		i++;
 	}
 	new_string[i] = '\0';
@@ -95,12 +94,13 @@ static char	*handle_expansion(t_tok *token, size_t i)
 	if (key == NULL)
 		return (NULL);
 	ft_strlcpy(key, &token->s[i], key_len + 1);
-	value = getenv(key);
+	value = ft_getenv(token, key);
 	if (value != NULL)
 		new_string = replace_key_with_value(token->s, value, key_len + 1);
 	else
 		new_string = skip_expansion(token->s, key_len + 1);
 	free(key);
+	free(value);
 	return (new_string);
 }
 

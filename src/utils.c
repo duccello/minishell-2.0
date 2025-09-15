@@ -18,24 +18,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-size_t	count_bins(t_data *data)
-{
-	size_t	i;
-	size_t	bins;
-
-	i = 0;
-	bins = 0;
-	while (i < data->n_cmds)
-	{
-		if (data->cmds[i]->argv[0] != NULL
-			&& cmd_is_built_in(data->cmds[i]->argv[0],
-				data->built_ins) == false)
-			bins++;
-		i++;
-	}
-	return (bins);
-}
+#include <token.h>
 
 int	char_counter(char *input, char c)
 {
@@ -97,8 +80,8 @@ int	find_equal(char *s)
 
 size_t	find_len(char *str, char c)
 {
-	size_t i;
-	size_t len;
+	size_t	i;
+	size_t	len;
 
 	i = 0;
 	len = 0;
@@ -112,4 +95,24 @@ size_t	find_len(char *str, char c)
 		len++;
 	}
 	return (len);
+}
+
+char	*ft_getenv(t_tok *token, char *key)
+{
+	char	*s;
+	t_node	*curr;
+	int		len_list;
+	int		len_key;
+
+	s = NULL;
+	len_key = ft_strlen(key);
+	curr = token->data->envp;
+	while (curr != NULL)
+	{
+		len_list = find_equal(curr->s);
+		if (ft_strncmp(curr->s, key, len_key) == 0 && len_key == len_list)
+			s = ft_strdup(&(curr->s[len_list + 1]));
+		curr = curr->next;
+	}
+	return (s);
 }

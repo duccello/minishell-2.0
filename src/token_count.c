@@ -39,8 +39,7 @@ int	count_tokens(char *s, char *tracker)
 	{
 		if (in_quote == false && in_dquote == false)
 			i += find_new_token(&s[i], &in_word, &counter, &tracker[i]);
-		toggle_quotes(s[i], &in_quote, &in_dquote);
-		i++;
+		toggle_quotes(s[i++], &in_quote, &in_dquote);
 	}
 	if (in_quote == true || in_dquote == true)
 	{
