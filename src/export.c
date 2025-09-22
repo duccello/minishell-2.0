@@ -12,8 +12,8 @@
 
 #include "cmds.h"
 #include "data.h"
-#include "list.h"
 #include "libft.h"
+#include "list.h"
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -24,6 +24,10 @@ void	ft_export(t_cmd *p)
 {
 	t_node	*node;
 
+	if (p->argv[1] == NULL)
+		return ;
+	if (ft_strchr(p->argv[1], '=') == NULL)
+		return ;
 	if (is_var_dup(p->argv[1], p->data->envp) == true)
 		delete_node(&p->data->envp, p->argv[1], find_equal(p->argv[1]));
 	node = create_node(p->argv[1]);
