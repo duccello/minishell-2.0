@@ -86,8 +86,8 @@ void	pids_and_ret(int *pid, int j, t_data *data)
 		while (i < j)
 			waitpid(pid[i++], &status, 0);
 		g_flag = 0;
-		if (data->ret_val != 127)
-			data->ret_val = get_return_val(status);
+ 		if (data->ret_val != 127)
+			 data->ret_val = get_return_val(status);
 		free(pid);
 	}
 }

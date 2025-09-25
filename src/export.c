@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "built_in.h"
 #include "cmds.h"
 #include "data.h"
 #include "ft_fprintf.h"
-#include "list.h"
 #include "libft.h"
+#include "list.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -37,8 +36,8 @@ void	ft_export(t_cmd *p)
 	{
 		if (is_parameter_name_invalid(p->argv[i]) == true)
 		{
-			ft_fprintf(STDERR_FILENO,
-				"export: %s: invalid parameter name\n", p->argv[i]);
+			ft_fprintf(STDERR_FILENO, "export: %s: invalid parameter name\n",
+				p->argv[i]);
 			p->data->ret_val = 1;
 		}
 		else if (ft_strchr(p->argv[i], '=') == NULL)
