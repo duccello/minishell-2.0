@@ -10,11 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include "data.h"
 #include "built_in.h"
-#include <stdlib.h>
+#include "cmds.h"
+#include "data.h"
+#include "libft.h"
+#include "list.h"
+#include "utils.h"
 #include <stdbool.h>
+#include <stdlib.h>
 
 t_data	*create_data(char **envp)
 {

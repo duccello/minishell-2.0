@@ -61,7 +61,7 @@ void	run_child_process(t_cmd *c)
 
 static void	close_unused_child_pipes(t_data *data, int in_use, int out_use)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < data->n_cmds - 1)

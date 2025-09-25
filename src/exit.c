@@ -10,32 +10,55 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include "libft.h"
-#include "ft_fprintf.h"
 #include "built_in.h"
-#include "cmds.h"
 #include "clean.h"
+#include "cmds.h"
 #include "data.h"
+#include "ft_fprintf.h"
+#include "libft.h"
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+static bool	str_is_num(char *s);
 
 void	ft_exit(t_data *data, t_cmd *cmd)
 {
 	uint8_t	status;
 
-	ft_fprintf(cmd->out_fd, "exit\n");
 	if (cmd->argv[1] == NULL)
 	{
+		ft_fprintf(cmd->out_fd, "exit\n");
 		if (cmd->data)
 			free_data(data);
-		exit (EXIT_SUCCESS);
+		exit(EXIT_SUCCESS);
 	}
+	else if (str_is_num(cmd->argv[1]) == false)
+		ft_fprintf(STDERR_FILENO, "exit: argument is not a number\n");
+	else if (cmd->argv[2] != NULL)
+		ft_fprintf(STDERR_FILENO, "exit: too many arguments\n");
 	else
 	{
-		status = (uint8_t) ft_atoi(cmd->argv[1]);
+		ft_fprintf(cmd->out_fd, "exit\n");
+		status = (uint8_t)ft_atoi(cmd->argv[1]);
 		if (cmd->data)
 			free_data(data);
-		exit (status);
+		exit(status);
 	}
+	data->ret_val = 1;
+}
+
+static bool	str_is_num(char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (false);
+		i++;
+	}
+	return (true);
 }

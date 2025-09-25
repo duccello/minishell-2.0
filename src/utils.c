@@ -97,7 +97,7 @@ size_t	find_len(char *str, char c)
 	return (len);
 }
 
-char	*ft_getenv(t_tok *token, char *key)
+char	*ft_getenv(t_data *data, char *key)
 {
 	char	*s;
 	t_node	*curr;
@@ -106,7 +106,7 @@ char	*ft_getenv(t_tok *token, char *key)
 
 	s = NULL;
 	len_key = ft_strlen(key);
-	curr = token->data->envp;
+	curr = data->envp;
 	while (curr != NULL)
 	{
 		len_list = find_equal(curr->s);

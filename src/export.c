@@ -18,8 +18,10 @@
 #include "list.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
+static char	*trim_all_quotes(char *arg);
 static bool	is_parameter_name_invalid(char *s);
 static bool	is_var_dup(char *s, t_node *list);
 static int	find_equal(char *s);
@@ -34,10 +36,10 @@ void	ft_export(t_cmd *p)
 	i = 1;
 	while (p->argv[i] != NULL)
 	{
+		p->argv[i] = trim_all_quotes(p->argv[i]);
 		if (is_parameter_name_invalid(p->argv[i]) == true)
 		{
-			ft_fprintf(STDERR_FILENO, "export: %s: invalid parameter name\n",
-				p->argv[i]);
+			ft_fprintf(2, "export: %s: invalid parameter\n", p->argv[i]);
 			p->data->ret_val = 1;
 		}
 		else if (ft_strchr(p->argv[i], '=') == NULL)
@@ -67,6 +69,35 @@ static bool	is_parameter_name_invalid(char *s)
 		i++;
 	}
 	return (false);
+}
+
+static char	*trim_all_quotes(char *arg)
+{
+	size_t	i;
+	size_t	c;
+	char	*new_str;
+
+	i = 0;
+	c = 0;
+	while (i < ft_strlen(arg))
+	{
+		if (arg[i] == '\'' || arg[i] == '"')
+			c++;
+		i++;
+	}
+	new_str = ft_calloc(ft_strlen(arg) - c + 1, 1);
+	if (new_str == NULL)
+		return (NULL);
+	i = 0;
+	c = 0;
+	while (i < ft_strlen(arg))
+	{
+		if (arg[i] != '\'' && arg[i] != '"')
+			new_str[c++] = arg[i];
+		i++;
+	}
+	free(arg);
+	return (new_str);
 }
 
 static bool	is_var_dup(char *s, t_node *list)

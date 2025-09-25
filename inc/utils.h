@@ -13,12 +13,13 @@
 #ifndef UTILS_H
 # define UTILS_H
 
+typedef struct s_data	t_data;
 typedef struct s_node	t_node;
 
 int						char_counter(char *input, char c);
 char					**create_array(t_node *envp);
 int						find_equal(char *s);
 size_t					find_len(char *str, char c);
-char					*ft_getenv(t_tok *token, char *key);
+char					*ft_getenv(t_data *data, char *key);
 
 #endif

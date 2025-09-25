@@ -15,6 +15,7 @@
 #include "data.h"
 #include "libft.h"
 #include "list.h"
+#include "ft_fprintf.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -23,22 +24,26 @@ static int	handle_abs_path(char *s);
 static int	handle_rel_path(char *s);
 static void	update_wd(t_node *list);
 
-int	cd(t_cmd *cmd)
+void	cd(t_cmd *cmd)
 {
 	if (cmd->argv[1] == NULL)
 		;
+	else if (cmd->argv[2] != NULL)
+	{
+		ft_fprintf(STDERR_FILENO, "cd: too many arguments\n");
+		cmd->data->ret_val = 1;
+	}
 	else if (cmd->argv[1][0] == '/')
 	{
 		if (handle_abs_path(cmd->argv[1]) == 1)
-			return (1);
+			cmd->data->ret_val = 1;
 	}
 	else
 	{
 		if (handle_rel_path(cmd->argv[1]) == 1)
-			return (1);
+			cmd->data->ret_val = 1;
 	}
 	update_wd(cmd->data->envp);
-	return (0);
 }
 
 static int	handle_abs_path(char *s)

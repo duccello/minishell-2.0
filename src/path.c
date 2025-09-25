@@ -34,7 +34,7 @@ bool	create_path(t_cmd *cmd)
 	paths = parse_path(cmd->data->envp);
 	if (paths == NULL)
 	{
-		ft_fprintf(STDERR_FILENO, "path not found\n");
+		ft_fprintf(STDERR_FILENO, "%s: path not found\n", cmd->argv[0]);
 		return (false);
 	}
 	path = join_path(cmd->argv[0], paths, cmd);

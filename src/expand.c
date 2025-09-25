@@ -94,7 +94,7 @@ static char	*handle_expansion(t_tok *token, size_t i)
 	if (key == NULL)
 		return (NULL);
 	ft_strlcpy(key, &token->s[i], key_len + 1);
-	value = ft_getenv(token, key);
+	value = ft_getenv(token->data, key);
 	if (value != NULL)
 		new_string = replace_key_with_value(token->s, value, key_len + 1);
 	else

@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_fprintf.h"
+#include "libft.h"
 #include "token.h"
+#include "data.h"
 #include <stdbool.h>
 #include <unistd.h>
 
 static int	find_new_token(char *s, bool *in_word, int *counter, char *c);
 static void	handle_operator(bool *in_word, int *counter, char *c);
 static void	handle_character(bool *in_word, int *counter, char *c);
+static void	init_bools(bool *in_quote, bool *in_dquote, bool *in_word);
 
-int	count_tokens(char *s, char *tracker)
+int	count_tokens(t_data *data, char *s, char *tracker)
 {
 	int		counter;
 	bool	in_quote;
@@ -28,9 +30,7 @@ int	count_tokens(char *s, char *tracker)
 	bool	in_word;
 	int		i;
 
-	in_quote = false;
-	in_dquote = false;
-	in_word = false;
+	init_bools(&in_quote, &in_dquote, &in_word);
 	counter = 0;
 	i = 0;
 	while (s[i] == ' ')
@@ -44,9 +44,17 @@ int	count_tokens(char *s, char *tracker)
 	if (in_quote == true || in_dquote == true)
 	{
 		ft_fprintf(STDERR_FILENO, "syntax error\n");
+		data->ret_val = 1;
 		return (0);
 	}
 	return (counter);
+}
+
+static void	init_bools(bool *in_quote, bool *in_dquote, bool *in_word)
+{
+	*in_quote = false;
+	*in_dquote = false;
+	*in_word = false;
 }
 
 static int	find_new_token(char *s, bool *in_word, int *counter, char *c)
