@@ -30,7 +30,7 @@ int	exec_binary(t_cmd *c)
 {
 	int	pid;
 
-	if (access(c->path, X_OK) == 0)
+	if (c->path != NULL && access(c->path, X_OK) == 0)
 		c->data->ret_val = 0;
 	pid = fork();
 	if (pid == 0)
@@ -47,16 +47,21 @@ void	run_child_process(t_cmd *c)
 	close_unused_child_pipes(c->data, c->in_fd, c->out_fd);
 	if (c->in_fd != STDIN_FILENO)
 	{
-		dup2(c->in_fd, STDIN_FILENO);
-		close(c->in_fd);
+		if (c->in_fd != -1)
+		{
+			dup2(c->in_fd, STDIN_FILENO);
+			close(c->in_fd);
+		}
 	}
 	if (c->out_fd != STDOUT_FILENO)
 	{
 		dup2(c->out_fd, STDOUT_FILENO);
 		close(c->out_fd);
 	}
-	if (access(c->path, X_OK) == 0)
+	if (c->path != NULL && access(c->path, X_OK) == 0 && c->in_fd != -1)
 		execve(c->path, c->argv, c->envp);
+	free_data(c->data);
+	exit(EXIT_FAILURE);
 }
 
 static void	close_unused_child_pipes(t_data *data, int in_use, int out_use)

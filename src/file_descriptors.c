@@ -37,7 +37,6 @@ int	set_fds(t_cmd *c)
 	{
 		ft_fprintf(STDERR_FILENO, "%s: %s\n", c->in_file, strerror(errno));
 		c->data->ret_val = 1;
-		return (1);
 	}
 	if (c->out_file != NULL)
 		c->out_fd = open(c->out_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);

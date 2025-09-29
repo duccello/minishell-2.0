@@ -38,11 +38,6 @@ bool	create_path(t_cmd *cmd)
 		return (false);
 	}
 	path = join_path(cmd->argv[0], paths, cmd);
-	if (path == NULL)
-	{
-		free_array(paths);
-		return (false);
-	}
 	free_array(paths);
 	cmd->path = path;
 	return (true);
