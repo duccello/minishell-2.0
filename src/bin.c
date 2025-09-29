@@ -32,6 +32,8 @@ int	exec_binary(t_cmd *c)
 
 	if (c->path != NULL && access(c->path, X_OK) == 0)
 		c->data->ret_val = 0;
+	else 
+		c->data->ret_val = 127;
 	pid = fork();
 	if (pid == 0)
 		run_child_process(c);
